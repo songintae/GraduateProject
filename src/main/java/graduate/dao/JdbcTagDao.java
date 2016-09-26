@@ -22,10 +22,12 @@ public class JdbcTagDao implements TagDao  {
 	}
 	public void delete(int id) {
 		// TODO Auto-generated method stub
+		this.jdbcTemplate.update("delete from tag where id = ?", id);
 		
 	}
 	public void tagDelete(String tag) {
 		// TODO Auto-generated method stub
+		this.jdbcTemplate.update("delete from tag where tag = ?", tag);
 		
 	}
 	
