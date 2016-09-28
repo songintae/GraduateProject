@@ -5,10 +5,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import graduate.dao.TagDao;
 
-public class NoiseRemoverV1 implements NoiseRemover{
+public class NoiseRemoverV2 implements NoiseRemover{
 	TagDao tDao;
 	
-	public NoiseRemoverV1(TagDao tDao){
+	public void setNoiseRemoverV2(TagDao tDao){
 		this.tDao = tDao;
 	}
 
