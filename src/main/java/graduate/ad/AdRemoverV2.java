@@ -29,6 +29,6 @@ public class AdRemoverV2 implements AdRemover {
 	/*
 	 * 인태야 contentDeleteByTag 만들어 줘. 이게 뭐냐면
 	 * 들어오는 태그가 포함된 컨텐츠를 DB에서 삭제하는거야. like함수 써서 부탁함~
-	 * 하.. 힘들다..-지혜..
+	 * 지혜가 힘들대ㅋㅋ
 	 */
 }
