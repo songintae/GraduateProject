@@ -1,4 +1,4 @@
-package graduate.ad;
+package graduate.remover;
 
 import java.awt.List;
 import java.io.BufferedReader;
@@ -9,15 +9,15 @@ import java.util.Iterator;
 
 import graduate.dao.ContentDao;
 
-public class AdRemoverV2 implements AdRemover {
+public class AdRemover implements Remover {
 
 	ContentDao cDao;
 
-	public void setAdRemoverV2(ContentDao cDao) {
+	public void setAdRemover(ContentDao cDao) {
 		this.cDao = cDao;
 	}
 
-	public boolean removeAd(String AdDictionary) throws IOException {
+	public boolean remove(String AdDictionary) throws IOException {
 		// TODO Auto-generated method stub
 		BufferedReader in = new BufferedReader(new FileReader(AdDictionary));
 		String ad_var;

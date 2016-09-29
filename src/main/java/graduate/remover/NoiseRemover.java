@@ -1,18 +1,18 @@
-package graduate.noise;
+package graduate.remover;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import graduate.dao.TagDao;
 
-public class NoiseRemoverV2 implements NoiseRemover{
+public class NoiseRemover implements Remover{
 	TagDao tDao;
 	
-	public void setNoiseRemoverV2(TagDao tDao){
+	public void setNoiseRemover(TagDao tDao){
 		this.tDao = tDao;
 	}
 
-	public boolean removeNoise(String noiseDictionary) throws IOException {
+	public boolean remove(String noiseDictionary) throws IOException {
 		// TODO Auto-generated method stub
 		BufferedReader in = new BufferedReader(new FileReader(noiseDictionary));
 
