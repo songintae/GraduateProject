@@ -7,4 +7,5 @@ public interface ContentDao {
 	public void add(Content content);
 	public Content get(int id);
 	public void delete(int id);
+	public void contentDeleteByText(String text);
 }

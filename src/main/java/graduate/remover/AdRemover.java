@@ -13,22 +13,27 @@ public class AdRemover implements Remover {
 
 	ContentDao cDao;
 
-	public void setAdRemover(ContentDao cDao) {
+	public void setContentDao(ContentDao cDao) {
 		this.cDao = cDao;
 	}
 
-	public boolean remove(String AdDictionary) throws IOException {
+	public void remove(String AdDictionary){
 		// TODO Auto-generated method stub
-		BufferedReader in = new BufferedReader(new FileReader(AdDictionary));
-		String ad_var;
+		BufferedReader in;
+		try{
+			 
+			in = new BufferedReader(new FileReader(AdDictionary));
+			String ad_var;
+			
+			while((ad_var = in.readLine()) != null){
+			cDao.contentDeleteByText(ad_var);
+			}
+			in.close();
+			
+		}catch(IOException e){
+			throw new RuntimeException(e);
+		}
 
-		cDao.contentDeleteByTag(ad_var);
-		in.close();
-		return false;
 	}
-	/*
-	 * 인태야 contentDeleteByTag 만들어 줘. 이게 뭐냐면
-	 * 들어오는 태그가 포함된 컨텐츠를 DB에서 삭제하는거야. like함수 써서 부탁함~
-	 * 지혜가 힘들대ㅋㅋ
-	 */
+	
 }

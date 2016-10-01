@@ -8,25 +8,34 @@ import graduate.dao.TagDao;
 public class NoiseRemover implements Remover{
 	TagDao tDao;
 	
-	public void setNoiseRemover(TagDao tDao){
+	public void setTagDao(TagDao tDao){
 		this.tDao = tDao;
 	}
 
-	public boolean remove(String noiseDictionary) throws IOException {
+	public void remove(String noiseDictionary) {
 		// TODO Auto-generated method stub
-		BufferedReader in = new BufferedReader(new FileReader(noiseDictionary));
+		BufferedReader in = null;
+		try{
+			 in = new BufferedReader(new FileReader(noiseDictionary));
 
-		String noise_var;
-		while (true) 
-		{
-			noise_var = in.readLine();
-			if (noise_var == null)
-				break;
+			String noise_var;
+			while (true) 
+			{
+				noise_var = in.readLine();
+				if (noise_var == null)
+					break;
 
-			tDao.tagDelete(noise_var);
+				tDao.tagDelete(noise_var);
+			}
+			
+			in.close();
+			
+		}catch(IOException e){
+			throw new RuntimeException(e);
 		}
-		in.close();
-		return false;
+
+
+		
 	}
 
 }

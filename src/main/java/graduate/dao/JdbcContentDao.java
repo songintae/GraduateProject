@@ -51,5 +51,10 @@ public class JdbcContentDao implements ContentDao {
 		// TODO Auto-generated method stub
 		this.jdbcTemplate.update("delete from content where content_id = ?",id);
 	}
+	public void contentDeleteByText(String text) {
+		// TODO Auto-generated method stub
+		this.jdbcTemplate.update("delete from content where text like %?%");
+		
+	}
 
 }
