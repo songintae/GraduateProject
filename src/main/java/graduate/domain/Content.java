@@ -10,6 +10,18 @@ public class Content {
 	
 	private Set<Tag> tags;
 	
+	
+	
+	public Content(){
+		
+	}
+	public Content(int id, int num_like , int num_tag , String text){
+		this.id = id;
+		this.num_like = num_like;
+		this.num_tag = num_tag;
+		this.text = text;
+	};
+	
 	public Set<Tag> getTags() {
 		return tags;
 	}

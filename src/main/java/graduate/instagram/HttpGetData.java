@@ -28,10 +28,14 @@ public class HttpGetData implements GetData{
 		try{
 			HttpResponse response  = httpClient.execute(getRequest);
 			BufferedReader br = new BufferedReader( new InputStreamReader((response.getEntity().getContent())));
-			String output;
-			while((output = br.readLine())!= null){}
+			String output = null;
+			String json = null;
+			while((output = br.readLine())!= null){
+				json = output;
+				
+			}
 			
-			return parseData.registryData(output);
+			return parseData.registryData(json);
 			
 			
 		}catch(ClientProtocolException e){

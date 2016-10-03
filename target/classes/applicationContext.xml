@@ -40,7 +40,7 @@
 
 <bean id ="dataSource" class = "org.springframework.jdbc.datasource.SimpleDriverDataSource">
     <property name ="driverClass" value="com.mysql.jdbc.Driver"/>
-    <property name = "url" value ="jdbc:mysql://localhost/honeyVoice?useSSL=false"/>
+    <property name = "url" value ="jdbc:mysql://localhost/testinstadata?useSSL=false"/>
     <property name = "username" value = "root"/>
     <property name = "password" value = "song9207108"/>
 </bean>

@@ -1,11 +1,17 @@
 package graduate.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 
 import graduate.domain.Content;
@@ -42,19 +48,39 @@ public class JdbcContentDao implements ContentDao {
 
 	public Content get(int id) {
 		// TODO Auto-generated method stub
-		
-		this.jdbcTemplate.queryForObject("select * from content where content_id = ?", new Object[id] ,contentMapper);
-		return null;
+		return this.jdbcTemplate.queryForObject("select * from content where content_id ="+id, this.contentMapper);
 	}
 
 	public void delete(int id) {
 		// TODO Auto-generated method stub
 		this.jdbcTemplate.update("delete from content where content_id = ?",id);
 	}
-	public void contentDeleteByText(String text) {
+	
+	public void deleteAll() {
 		// TODO Auto-generated method stub
-		this.jdbcTemplate.update("delete from content where text like %?%");
-		
+		this.jdbcTemplate.update("delete from content");
+	}
+	public int getCount() {
+		// TODO Auto-generated method stub
+		return this.jdbcTemplate.query(new PreparedStatementCreator(){
+
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				// TODO Auto-generated method stub
+				return con.prepareStatement("select count(*) from content");
+			}
+			
+		}, new ResultSetExtractor<Integer>(){
+
+			public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+				// TODO Auto-generated method stub
+				rs.next();
+				
+				return rs.getInt(1);
+			}});
+	}
+	public List<Content> getAll() {
+		// TODO Auto-generated method stub
+		return this.jdbcTemplate.query("select * from content",this.contentMapper);
 	}
 
 }
