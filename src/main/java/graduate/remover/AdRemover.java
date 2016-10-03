@@ -1,11 +1,9 @@
 package graduate.remover;
 
-import java.awt.Cursor;
-import java.awt.List;
+import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import graduate.dao.ContentDao;
@@ -21,7 +19,7 @@ public class AdRemover implements Remover {
 
 	public void remove(String AdDictionary){
 		// TODO Auto-generated method stub
-		ArrayList<Content> contentList = new ArrayList<Content>();
+		List<Content> contentList;
 		Content content;
 		BufferedReader in;
 		try{

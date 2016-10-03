@@ -3,7 +3,7 @@ package graduate.remover;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Iterator;
 
 import graduate.dao.TagDao;
@@ -19,7 +19,7 @@ public class NoiseRemover implements Remover {
 
 	public void remove(String noiseDictionary) {
 		// TODO Auto-generated method stub
-		ArrayList<Tag> tagList = new ArrayList<Tag>();
+		List<Tag> tagList;
 		Tag tag;
 		BufferedReader in;
 		try {
