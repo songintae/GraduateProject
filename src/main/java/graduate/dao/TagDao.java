@@ -1,13 +1,21 @@
 package graduate.dao;
 
+import java.util.List;
+
 import graduate.domain.Tag;
 
 public interface TagDao {
 	
 	public void add(Tag tag);
+	public Tag get(int id);
+	public List<Tag> getAll();
 	public void delete(int id);
-	public void tagDelete(String tag);
+	public void deleteAll();
 	
+	
+	
+	//테스트용
+	public int getCount();
 	
 	
 	

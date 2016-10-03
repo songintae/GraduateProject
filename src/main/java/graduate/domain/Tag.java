@@ -7,6 +7,12 @@ public class Tag {
 	
 	Content content;
 	
+	public Tag(){};
+	public Tag(int tag_id , int content_id, String tag){
+		this.tag_id = tag_id;
+		this.content_id = content_id;
+		this.tag = tag;
+	}
 	
 	public Content getContent() {
 		return content;
