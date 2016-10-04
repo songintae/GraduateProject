@@ -4,6 +4,6 @@ import java.io.IOException;
 
 public interface Remover {
 
-	public void remove(String dictionary);
+	public void remove();
 
 }
