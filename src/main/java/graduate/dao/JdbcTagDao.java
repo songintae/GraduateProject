@@ -80,5 +80,24 @@ public class JdbcTagDao implements TagDao  {
 			}});
 	}
 	
+	public int getLastId() {
+		// TODO Auto-generated method stub
+		return this.jdbcTemplate.query(new PreparedStatementCreator(){
+
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				// TODO Auto-generated method stub
+				return con.prepareStatement("select * from tags");
+			}
+			
+		}, new ResultSetExtractor<Integer>(){
+
+			public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+				// TODO Auto-generated method stub
+				rs.last();
+				
+				return rs.getInt("tag_id");
+			}});
+	}
+	
 	
 }

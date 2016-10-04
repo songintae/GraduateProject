@@ -132,4 +132,16 @@ public class TagDaoTest {
 		checkSameTag(getTags.get(0),tags.get(1));
 //		
 	}
+	@Test
+	public void getLastId(){
+		tagDao.deleteAll();
+		assertThat(tagDao.getCount() , is(0));
+		for(Tag tag : tags){
+			tagDao.add(tag);
+		}
+		assertThat(tagDao.getCount(),is(3));
+		
+		assertThat(tagDao.getLastId(),is(3));
+		
+	}
 }

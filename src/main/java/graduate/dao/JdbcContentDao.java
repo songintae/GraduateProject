@@ -82,5 +82,24 @@ public class JdbcContentDao implements ContentDao {
 		// TODO Auto-generated method stub
 		return this.jdbcTemplate.query("select * from content",this.contentMapper);
 	}
+	public int getLastId() {
+		// TODO Auto-generated method stub
+		return this.jdbcTemplate.query(new PreparedStatementCreator(){
+
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				// TODO Auto-generated method stub
+				return con.prepareStatement("select * from content");
+			}
+			
+		}, new ResultSetExtractor<Integer>(){
+
+			public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+				// TODO Auto-generated method stub
+				rs.last();
+				
+				return rs.getInt("content_id");
+			}});
+	}
+	
 
 }

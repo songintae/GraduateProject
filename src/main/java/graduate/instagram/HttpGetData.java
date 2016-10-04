@@ -35,6 +35,7 @@ public class HttpGetData implements GetData{
 				
 			}
 			
+		
 			return parseData.registryData(json);
 			
 			

@@ -108,6 +108,19 @@ public class ContentDaoTest {
 		checkContents(getContents.get(0),contents.get(1));
 		checkContents(getContents.get(1),contents.get(3));
 	}
+	@Test
+	public void getLastId(){
+		contentDao.deleteAll();
+		assertThat(contentDao.getLastId(),is(0));
+		for(Content content : contents){
+			contentDao.add(content);
+		}
+		
+		assertThat(contentDao.getCount(),is(4));
+		contentDao.delete(4);
+		assertThat(contentDao.getLastId(),is(3));
+	}
+	
 	
 	
 }

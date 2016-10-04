@@ -9,6 +9,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import graduate.dao.ContentDao;
+import graduate.dao.TagDao;
 import graduate.domain.Content;
 import graduate.domain.Tag;
 
@@ -18,13 +20,25 @@ public class JsonParseData implements ParseData {
 	
 	private String next_url;
 	private InstaService instaService;
+	private ContentDao contentDao;
+	private TagDao tagDao;
 	
 	public void setInstaService(InstaService instaService){
 		this.instaService = instaService;
 	}
+	public void setContentDao(ContentDao contentDao){
+		this.contentDao = contentDao;
+	}
+	
+	public void setTagDao(TagDao tagDao){
+		this.tagDao = tagDao;
+	}
+	
 	public String registryData(String jsonData) {
 		// TODO Auto-generated method stub
-		int tag_id = 0;
+		
+		int tag_id = 1;
+		int content_id = contentDao.getLastId()+1;
 		try{
 			JSONParser parser = new JSONParser();
 			JSONObject obj = (JSONObject)parser.parse(jsonData);
@@ -32,14 +46,14 @@ public class JsonParseData implements ParseData {
 			next_url = (String)pagination.get("next_url");
 			JSONArray data = (JSONArray)obj.get("data");
 			
-			for(int i = 0; i<data.size(); i++){
+			for(int i = 0; i<data.size(); i++,content_id++){
 				Content content = new Content();
 				JSONObject content_data = (JSONObject)data.get(i);
 				
 				JSONObject likes = (JSONObject)content_data.get("likes");
 				
 				int num_like = Integer.parseInt(likes.get("count").toString());
-				content.setId(i);
+				content.setId(content_id);
 				content.setNum_like(num_like);
 				
 				JSONArray tags = (JSONArray)content_data.get("tags");
@@ -55,7 +69,8 @@ public class JsonParseData implements ParseData {
 				
 				
 				Set<Tag> newTags = new HashSet<Tag>();
-				
+				instaService.registryContent(content);
+				System.out.println(content.getText() + " " +content.getId());
 				for(int j = 0 ; j<tags.size() ; j++,tag_id++)
 				{
 					Tag newTag = new Tag();
@@ -65,7 +80,7 @@ public class JsonParseData implements ParseData {
 					if((String)tags.get(j)!=null)
 						tag = (String)tags.get(j);
 					
-					newTag.setContent_id(i);
+					newTag.setContent_id(content.getId());
 					newTag.setTag_id(tag_id);
 					newTag.setTag(tag);
 					
@@ -76,7 +91,7 @@ public class JsonParseData implements ParseData {
 					
 				}
 				content.setTags(newTags);
-				instaService.registryContent(content);
+				
 				
 			}
 			return next_url;

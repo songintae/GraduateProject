@@ -12,6 +12,7 @@ public interface ContentDao {
 	public Content get(int id);
 	public void delete(int id);
 	public List<Content> getAll();
+	public int getLastId();
 	
 	
 	//테스트용

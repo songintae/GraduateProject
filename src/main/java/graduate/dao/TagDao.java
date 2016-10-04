@@ -11,6 +11,7 @@ public interface TagDao {
 	public List<Tag> getAll();
 	public void delete(int id);
 	public void deleteAll();
+	public int getLastId();
 	
 	
 	
