@@ -13,7 +13,6 @@ public interface InstaService {
 	
 	//Tag DB에 저장.
 	public void registryTag(Tag tag);
-	
 	/*
 	 *url을 parameter로 전달(사용자/지역 구분 없음).
 	 *함수기능

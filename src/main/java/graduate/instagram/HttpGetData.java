@@ -16,10 +16,7 @@ public class HttpGetData implements GetData{
 		this.parseData = parseData;
 	}
 	
-	
-	
 	public String getData(String url)  {
-		// TODO Auto-generated method stub
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		HttpGet getRequest = new HttpGet(url);
 		getRequest.addHeader("accept","application/json");
