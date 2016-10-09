@@ -1,5 +1,6 @@
 package graduate.domain;
 
+import java.util.Map;
 import java.util.Set;
 
 public class Content {
@@ -8,7 +9,7 @@ public class Content {
 	private int num_tag;
 	private	String text;
 	
-	private Set<Tag> tags;
+	private Map<Integer,Tag> tags;
 	
 	
 	
@@ -22,10 +23,11 @@ public class Content {
 		this.text = text;
 	};
 	
-	public Set<Tag> getTags() {
+	
+	public Map<Integer, Tag> getTags() {
 		return tags;
 	}
-	public void setTags(Set<Tag> tags) {
+	public void setTags(Map<Integer, Tag> tags) {
 		this.tags = tags;
 	}
 	public int getId() {

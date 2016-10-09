@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -70,8 +71,7 @@ public class JsonParseData implements ParseData {
 				content.setText(this.surrogate.getRemoveSurrogateArea(text));
 
 				
-				
-				Set<Tag> newTags = new HashSet<Tag>();
+			
 				instaService.registryContent(content);
 				
 				for(int j = 0 ; j<tags.size() ; j++,tag_id++)
@@ -88,13 +88,13 @@ public class JsonParseData implements ParseData {
 					newTag.setTag_id(tag_id);
 					newTag.setTag(this.surrogate.getRemoveSurrogateArea(tag));
 					
-					newTags.add(newTag);
+			
 					
 					instaService.registryTag(newTag);
 					
 					
 				}
-				content.setTags(newTags);
+			
 				
 				
 			}

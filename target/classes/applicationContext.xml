@@ -10,6 +10,11 @@
 
 <bean id ="removeSurrogateArea" class="graduate.instagram.BasicRemoveSurrogateArea"/>
 
+<bean id ="platFormDataService" class="graduate.platformdataservice.BasicPlatFormDataService">
+	<property name ="contentDao" ref="contentDao"/>
+	<property name ="tagDao" ref="tagDao"/>
+</bean>
+
 <bean id ="noiseRemover" class="graduate.remover.NoiseRemover">
 	<property name = "tagDao" ref = "tagDao"/>
 	<property name = "noisePath" value="noiseRemoverTest.txt"/>
