@@ -9,6 +9,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.TransientDataAccessResourceException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -82,21 +83,25 @@ public class JdbcTagDao implements TagDao  {
 	
 	public int getLastId() {
 		// TODO Auto-generated method stub
-		return this.jdbcTemplate.query(new PreparedStatementCreator(){
+		try{
+			return this.jdbcTemplate.query(new PreparedStatementCreator(){
 
-			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-				// TODO Auto-generated method stub
-				return con.prepareStatement("select * from tags");
-			}
-			
-		}, new ResultSetExtractor<Integer>(){
-
-			public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
-				// TODO Auto-generated method stub
-				rs.last();
+				public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+					// TODO Auto-generated method stub
+					return con.prepareStatement("select * from tags");
+				}
 				
-				return rs.getInt("tag_id");
-			}});
+			}, new ResultSetExtractor<Integer>(){
+
+				public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+					// TODO Auto-generated method stub
+					rs.last();
+					return rs.getInt("tag_id");
+					
+				}});
+		}catch(RuntimeException e){
+			return 1;
+		}
 	}
 	
 	

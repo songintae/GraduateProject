@@ -29,7 +29,7 @@ public class ContentDaoTest {
 			new Content(1 , 1, 1, "test1"),
 			new Content(2, 2, 2 ,"test2"),
 			new Content(3, 3, 3 ,"test3"),
-			new Content(4, 4, 4 ,"test3")
+			new Content(4, 4, 4 ,"한글확인")
 		);
 	}
 	
@@ -83,6 +83,7 @@ public class ContentDaoTest {
 		List<Content> getContents =  contentDao.getAll();
 		int i;
 		for(i = 0; i<getContents.size() ; i++){
+			System.out.println(getContents.get(i).getText());
 			checkContents(getContents.get(i),contents.get(i));
 		}
 		

@@ -58,6 +58,18 @@ public class BasicInstaService implements InstaService {
 		}
 		
 	}
+
+
+	public int getContentLastId() {
+		// TODO Auto-generated method stub
+		return contentDao.getLastId();
+	}
+
+
+	public int getTagLastId() {
+		// TODO Auto-generated method stub
+		return tagDao.getLastId();
+	}
 	
 	
 

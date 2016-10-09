@@ -84,7 +84,7 @@ public class RemoverTest {
 	public void adRemoverTest(){
 		adRemover.remove();
 		
-		assertThat(contentDao.getCount() , is(2));
+		assertThat(contentDao.getCount() , is(2)); 
 		List<Content> getContent = contentDao.getAll();
 		
 		assertThat(getContent.get(0).getId(),is(contents.get(1).getId()));

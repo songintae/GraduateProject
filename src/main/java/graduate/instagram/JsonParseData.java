@@ -20,25 +20,17 @@ public class JsonParseData implements ParseData {
 	
 	private String next_url;
 	private InstaService instaService;
-	private ContentDao contentDao;
-	private TagDao tagDao;
 	
 	public void setInstaService(InstaService instaService){
 		this.instaService = instaService;
 	}
-	public void setContentDao(ContentDao contentDao){
-		this.contentDao = contentDao;
-	}
 	
-	public void setTagDao(TagDao tagDao){
-		this.tagDao = tagDao;
-	}
 	
 	public String registryData(String jsonData) {
 		// TODO Auto-generated method stub
 		
-		int tag_id = 1;
-		int content_id = contentDao.getLastId()+1;
+		int tag_id = instaService.getTagLastId()+ 1;
+		int content_id = instaService.getContentLastId()+ 1;
 		try{
 			JSONParser parser = new JSONParser();
 			JSONObject obj = (JSONObject)parser.parse(jsonData);
@@ -66,6 +58,7 @@ public class JsonParseData implements ParseData {
 				 text = (String)caption.get("text");
 				text = (((text.replace("\"", "")).replace("\'", "")).replace("\n", "")).replace("?","");
 				content.setText(text);
+				System.out.println("이모티콘확인"+content.getText());
 				
 				
 				Set<Tag> newTags = new HashSet<Tag>();

@@ -6,6 +6,9 @@ import graduate.domain.Tag;
 public interface InstaService {
 	
 	//Content DB에 저장.
+	
+	public int getContentLastId();
+	public int getTagLastId();
 	public void registryContent(Content content);
 	
 	//Tag DB에 저장.

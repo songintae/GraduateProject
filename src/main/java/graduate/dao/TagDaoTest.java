@@ -41,9 +41,9 @@ public class TagDaoTest {
 		contentDao.add(content);
 		
 		tags = Arrays.asList(
-				new Tag(1 , 1 ,"tag1"),
-				new Tag(2 , 1 ,"tag2"),
-				new Tag(3 , 1 ,"tag3")
+				new Tag(1 , 1 ,"태그1"),
+				new Tag(2 , 1 ,"태그2"),
+				new Tag(3 , 1 ,"태그3")
 				);
 	}
 	

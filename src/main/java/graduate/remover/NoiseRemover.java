@@ -1,10 +1,17 @@
 package graduate.remover;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.List;
+
+import org.apache.commons.codec.CharEncoding;
+import org.apache.http.util.CharsetUtils;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -41,7 +48,8 @@ public class NoiseRemover implements Remover {
 					tagList.remove(tag);
 				}
 				deleteTag.clear();
-				for(Tag tag : tagList){
+				for(Tag tag : tagList)
+				{
 					if(checkSameTag(tag.getTag(),noise_var)){
 						tDao.delete(tag.getTag_id());
 						deleteTag.add(tag);
@@ -56,6 +64,10 @@ public class NoiseRemover implements Remover {
 	}
 	
 	protected boolean checkSameTag(String validation , String expected) throws UnsupportedEncodingException{
+		String Sbvalidation = new String(validation.getBytes("utf-8"), "utf-8");
+		String SbExpected = new String(expected.getBytes("utf-8"), "utf-8");
+//		System.out.println(Sbvalidation + " " + SbExpected + " " +Sbvalidation.equals(SbExpected));
+
 		if(validation.equals(expected)){
 			return true;
 		}else{
