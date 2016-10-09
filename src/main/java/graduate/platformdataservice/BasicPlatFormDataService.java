@@ -30,13 +30,13 @@ public class BasicPlatFormDataService implements PlatFormDataService {
 		
 		int i = 0;
 		for(Content content : contents){
-			Map<Integer,Tag> tagHash = new HashMap<Integer,Tag>();
+			List<Tag> tagHash = new ArrayList<Tag>();
 			
 			for(;i<tags.size(); i++){
 				Tag tag = tags.get(i);
 				tag.setContent(content);
 				if(tag.getContent_id() == content.getId())
-					tagHash.put(tag.getTag_id(),tag);
+					tagHash.add(tag);
 				else
 					break;
 			}

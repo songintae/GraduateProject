@@ -75,12 +75,12 @@ public class PlatFormDataServiceTest {
 		checkContents(getContents.get(1),contents.get(1));
 		
 		assertThat(getContents.get(0).getTags().size(),is(2));
-		checkSameTag(getContents.get(0).getTags().get(tags.get(0).getTag_id()),tags.get(0));
-		checkSameTag(getContents.get(0).getTags().get(tags.get(1).getTag_id()),tags.get(1));
+		checkSameTag(getContents.get(0).getTags().get(0),tags.get(0));
+		checkSameTag(getContents.get(0).getTags().get(1),tags.get(1));
 		
 		assertThat(getContents.get(1).getTags().size(),is(2));
-		checkSameTag(getContents.get(1).getTags().get(tags.get(2).getTag_id()),tags.get(2));
-		checkSameTag(getContents.get(1).getTags().get(tags.get(3).getTag_id()),tags.get(3));
+		checkSameTag(getContents.get(1).getTags().get(0),tags.get(2));
+		checkSameTag(getContents.get(1).getTags().get(1),tags.get(3));
 		
 		
 	}
