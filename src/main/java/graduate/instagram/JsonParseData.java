@@ -1,9 +1,14 @@
 package graduate.instagram;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.codec.CharEncoding;
+import org.apache.http.util.CharsetUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -20,9 +25,12 @@ public class JsonParseData implements ParseData {
 	
 	private String next_url;
 	private InstaService instaService;
-	
+	private RemoveSurrogateArea surrogate;
 	public void setInstaService(InstaService instaService){
 		this.instaService = instaService;
+	}
+	public void setRemoveSurrogateArea(RemoveSurrogateArea surrogate){
+		this.surrogate = surrogate;
 	}
 	
 	
@@ -57,13 +65,15 @@ public class JsonParseData implements ParseData {
 				if(caption !=null)
 				 text = (String)caption.get("text");
 				text = (((text.replace("\"", "")).replace("\'", "")).replace("\n", "")).replace("?","");
-				content.setText(text);
-				System.out.println("이모티콘확인"+content.getText());
+				
+				
+				content.setText(this.surrogate.getRemoveSurrogateArea(text));
+
 				
 				
 				Set<Tag> newTags = new HashSet<Tag>();
 				instaService.registryContent(content);
-				System.out.println(content.getText() + " " +content.getId());
+				
 				for(int j = 0 ; j<tags.size() ; j++,tag_id++)
 				{
 					Tag newTag = new Tag();
@@ -73,9 +83,10 @@ public class JsonParseData implements ParseData {
 					if((String)tags.get(j)!=null)
 						tag = (String)tags.get(j);
 					
+					
 					newTag.setContent_id(content.getId());
 					newTag.setTag_id(tag_id);
-					newTag.setTag(tag);
+					newTag.setTag(this.surrogate.getRemoveSurrogateArea(tag));
 					
 					newTags.add(newTag);
 					

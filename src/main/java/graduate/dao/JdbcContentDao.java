@@ -103,7 +103,7 @@ public class JdbcContentDao implements ContentDao {
 					
 				}});
 		}catch(RuntimeException e){
-			return 1;
+			return 0;
 		}
 
 	}

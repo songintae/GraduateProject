@@ -100,7 +100,7 @@ public class JdbcTagDao implements TagDao  {
 					
 				}});
 		}catch(RuntimeException e){
-			return 1;
+			return 0;
 		}
 	}
 	

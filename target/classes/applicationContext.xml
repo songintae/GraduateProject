@@ -8,6 +8,8 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 
+<bean id ="removeSurrogateArea" class="graduate.instagram.BasicRemoveSurrogateArea"/>
+
 <bean id ="noiseRemover" class="graduate.remover.NoiseRemover">
 	<property name = "tagDao" ref = "tagDao"/>
 	<property name = "noisePath" value="noiseRemoverTest.txt"/>
@@ -37,6 +39,7 @@
 
 <bean id = "parseData" class="graduate.instagram.JsonParseData">
     <property name="instaService" ref="instaService"/>
+    <property name="removeSurrogateArea" ref="removeSurrogateArea"/>
 </bean>
 
 <bean id ="dataSource" class = "org.springframework.jdbc.datasource.SimpleDriverDataSource">

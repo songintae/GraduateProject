@@ -67,7 +67,7 @@ public class NoiseRemover implements Remover {
 		String Sbvalidation = new String(validation.getBytes("utf-8"), "utf-8");
 		String SbExpected = new String(expected.getBytes("utf-8"), "utf-8");
 //		System.out.println(Sbvalidation + " " + SbExpected + " " +Sbvalidation.equals(SbExpected));
-
+		
 		if(validation.equals(expected)){
 			return true;
 		}else{
