@@ -1,0 +1,9 @@
+진행 사항
+1.Tag , Content Dao 구현완료
+2.사용자 데이터 받아오는 instaService 구현완료
+3.Noise , Advertise 제거 코드 구현완료
+3.content와 tag의 관계를 설정하여 데이터를 받아오는 PlatFormDataService 구현완료
+
+필수사항.
+데이터를 받아올때는 Dao가아닌 PlatFormDataSerivce를 사용하기.(오류로 인한 데이터 수정,삭제방지 차원)
+
