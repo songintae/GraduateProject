@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+
+  <bean id="tagDupRemover" class="graduate.cluster.BasicTagDupRemover">
+    <property name ="platFormDataService" ref="platFormDataService"/>
+  </bean>
+	<bean id="removeSurrogateArea" class="graduate.instagram.BasicRemoveSurrogateArea" />
+
+	<bean id="platFormDataService" class="graduate.platformdataservice.BasicPlatFormDataService">
+		<property name="contentDao" ref="contentDao" />
+		<property name="tagDao" ref="tagDao" />
+	</bean>
+
+	<bean id="noiseRemover" class="graduate.remover.NoiseRemover">
+		<property name="tagDao" ref="tagDao" />
+		<property name="noisePath" value="noiseRemoverTest.txt" />
+	</bean>
+
+	<bean id="adRemover" class="graduate.remover.AdRemover">
+		<property name="contentDao" ref="contentDao" />
+		<property name="adRemoverPath" value="adRemvoerPathTest.txt" />
+	</bean>
+
+	<bean id="tagDao" class="graduate.dao.JdbcTagDao">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="contentDao" class="graduate.dao.JdbcContentDao">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="instaService" class="graduate.instagram.BasicInstaService">
+		<property name="contentDao" ref="contentDao" />
+		<property name="tagDao" ref="tagDao" />
+		<property name="getData" ref="getData" />
+	</bean>
+
+	<bean id="getData" class="graduate.instagram.HttpGetData">
+		<property name="parseData" ref="parseData" />
+	</bean>
+
+	<bean id="parseData" class="graduate.instagram.JsonParseData">
+		<property name="instaService" ref="instaService" />
+		<property name="removeSurrogateArea" ref="removeSurrogateArea" />
+	</bean>
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/instatest?useSSL=false" />
+		<property name="username" value="root" />
+		<property name="password" value="5887" />
+	</bean>
+
+</beans>

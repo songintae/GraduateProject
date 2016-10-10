@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import graduate.domain.Content;
+import graduate.instagram.InstaService;
 import graduate.platformdataservice.PlatFormDataService;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -20,11 +21,14 @@ import java.util.List;
 public class GetDataTest {
 	
 	@Autowired
-	PlatFormDataService service;
+	PlatFormDataService pService;
+	@Autowired
+	InstaService iService;
 	
 	@Test
 	public void httpdaoTest(){
-		List<Content> cList = service.getAllContents();
+		
+		List<Content> cList = pService.getAllContents();
 		System.out.println(cList.get(0));
 	}
 }
