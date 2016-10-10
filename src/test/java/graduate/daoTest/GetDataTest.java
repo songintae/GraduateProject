@@ -6,20 +6,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import graduate.instagram.InstaService;
+import graduate.domain.Content;
+import graduate.platformdataservice.PlatFormDataService;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/applicationContext.xml")
 public class GetDataTest {
 	
 	@Autowired
-	InstaService service;
+	PlatFormDataService service;
 	
 	@Test
 	public void httpdaoTest(){
-		service.GetAndRegistryData("https://api.instagram.com/v1/users/self/media/recent/?access_token=2286401760.52879a7.2fcf17a37942461da015116ed66b2e5d");
+		List<Content> cList = service.getAllContents();
+		System.out.println(cList.get(0));
 	}
 }
