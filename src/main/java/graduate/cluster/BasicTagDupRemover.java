@@ -45,6 +45,8 @@ public class BasicTagDupRemover implements TagDupRemover {
 		
 		List<TagWithCount> tagWithCntList = new ArrayList<TagWithCount>();
 		Set<String> keySet = map.keySet();
+		
+		
 		TagWithCount twc;
 		if(map.size() > 0){
 			for(String keyTag : keySet){

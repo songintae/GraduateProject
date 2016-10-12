@@ -6,5 +6,5 @@ import graduate.domain.TagWithCount;
 
 public interface TagDupRemover {
 	
-	public List<TagWithCount> getTagSet(); 
+	public List<TagWithCount> getTagSet();
 }
