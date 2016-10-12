@@ -4,6 +4,7 @@
 3.Noise , Advertise 제거 코드 구현완료
 3.content와 tag의 관계를 설정하여 데이터를 받아오는 PlatFormDataService 구현완료
 4.Content domain 변경(Tag를 List<Tag>형식으로 저장하도록 변경)
+5.사용자 클러스터링 후 arff파일로 만드는 것 까지 구현 완료.
 
 필수사항.
 데이터를 받아올때는 Dao가아닌 PlatFormDataSerivce를 사용하기.(오류로 인한 데이터 수정,삭제방지 차원)
