@@ -24,6 +24,7 @@ public class BasicArffMaker implements ArffMaker {
 		int colNum = matrix[0].length;
 		
 		Attribute[] attributes = new Attribute[colNum];
+		
 		// 태그이름들을 1.태그 이런식으로 다시 저장
 		if(noDupTags == null){
 			for (int i = 0; i < colNum; i++) {
@@ -37,6 +38,7 @@ public class BasicArffMaker implements ArffMaker {
 				attributes[i] = new Attribute(attributeString);
 			}
 		}
+		
 		// 웨카 라이브러리에서 제공하는 클래스.
 		FastVector fastVector = new FastVector(rowNum);
 
