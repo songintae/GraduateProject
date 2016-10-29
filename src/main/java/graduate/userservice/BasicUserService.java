@@ -7,14 +7,14 @@ import graduate.platformdataservice.PlatFormDataService;
 
 public class BasicUserService implements UserService{
 
-	private PlatFormDataService platformDataService;
+	private PlatFormDataService platFormDataService;
 	
-	public void setPlatformDataService(PlatFormDataService platformDataService) {
-		this.platformDataService = platformDataService;
+	public void setPlatFormDataService(PlatFormDataService platFormDataService) {
+		this.platFormDataService = platFormDataService;
 	}
 
 	public HashMap<String, Integer> getTagCount() {
-		List<Tag> tagList = platformDataService.getAllTags();
+		List<Tag> tagList = platFormDataService.getAllTags();
 		HashMap<String, Integer> tagCount = new HashMap<String, Integer>();
 
 		for (Tag tagObject1 : tagList) {
