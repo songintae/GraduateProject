@@ -7,6 +7,11 @@
   http://www.springframework.org/schema/context/spring-context.xsd">
 
 
+  <bean id ="arffToDatabase" class = "graduate.cluster.BasicArffToDatabase">
+    <property name = "instaDataSource" ref="instaDataSource"/>
+    <property name = "clusterDao" ref = "clusterDao"/>
+    <property name = "attributeDao" ref ="attributeDao"/>
+  </bean>
 
   <bean id="userService" class="graduate.userservice.BasicUserService">
     <property name ="platFormDataService" ref="platFormDataService"/>
@@ -33,15 +38,24 @@
 
 
   <bean id = "userDao" class ="graduate.dao.JdbcUserDao">
-    <property name = "dataSource" ref = "dataSource" />
+    <property name = "dataSource" ref = "userDataSource" />
   </bean>
 
   <bean id="tagDao" class="graduate.dao.JdbcTagDao">
-    <property name="dataSource" ref="dataSource" />
+    <property name="dataSource" ref="userDataSource" />
   </bean>
   <bean id="contentDao" class="graduate.dao.JdbcContentDao">
-    <property name="dataSource" ref="dataSource" />
+    <property name="dataSource" ref="userDataSource" />
   </bean>
+
+  <bean id="clusterDao" class="graduate.dao.cluster.JdbcClusterDao">
+    <property name="dataSource" ref="clusterDataSource" />
+  </bean>
+  <bean id="attributeDao" class="graduate.dao.cluster.JdbcAttributeDao">
+    <property name="dataSource" ref="clusterDataSource" />
+  </bean>
+
+
 
   <bean id="instaService" class="graduate.instagram.BasicInstaService">
     <property name="contentDao" ref="contentDao" />
