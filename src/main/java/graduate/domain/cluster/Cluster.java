@@ -4,8 +4,6 @@ public class Cluster {
 	int id;
 	int cluster_id;
 	int count;
-	int area_id;
-	
 	Area area;
 
 	public int getId() {
@@ -32,14 +30,6 @@ public class Cluster {
 		this.count = count;
 	}
 
-	public int getArea_id() {
-		return area_id;
-	}
-
-	public void setArea_id(int area_id) {
-		this.area_id = area_id;
-	}
-
 	public Area getArea() {
 		return area;
 	}
@@ -47,4 +37,5 @@ public class Cluster {
 	public void setArea(Area area) {
 		this.area = area;
 	}
+	
 }

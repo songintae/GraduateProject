@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 
 import graduate.dao.cluster.AttributeDao;
 import graduate.dao.cluster.ClusterDao;
+import graduate.domain.cluster.Area;
 import graduate.domain.cluster.Attribute;
 import graduate.domain.cluster.Cluster;
 import weka.clusterers.ClusterEvaluation;
@@ -46,6 +47,8 @@ class Tag
 
 
 
+
+
 public class BasicArffToDatabase implements ArffToDatabase {
 	
 	private DataSource instaDataSource;
@@ -62,19 +65,23 @@ public class BasicArffToDatabase implements ArffToDatabase {
 		this.attributeDao = attributeDao;
 	}
 	
+	
+	
 	public void arffToDatabase(String filePath, String region) {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		PreparedStatement ps = null;
 		Statement stmt = null;
 		ResultSet rs = null;
+		
+		Area area = Area.getStringToArea(region);
 		try{
 			conn = this.instaDataSource.getConnection();
 			
 			
 			
 			stmt = conn.createStatement();
-			String sql = "select * from (select tag , count(*) as count from busan where content_id in(select content_id from busan where tag = '부산') group by tag) as test1 where count >10;";
+			String sql = "select * from (select tag , count(*) as count from "+region+" where content_id in(select content_id from "+region+" where tag = "+area.getArea()+") group by tag) as test1 where count >10;";
 			rs = stmt.executeQuery(sql);
 			rs.last();
 			Tag tags[] = new Tag[rs.getRow()];
@@ -137,7 +144,7 @@ public class BasicArffToDatabase implements ArffToDatabase {
 			for(i = 0; i<eval.getNumClusters() ; i++)
 			{
 				Cluster newCluster = new Cluster();
-				newCluster.setArea_id(1);
+				newCluster.setArea(area);
 				newCluster.setCluster_id(i+1);
 				newCluster.setCount(clusters[i].size());
 				clusterDao.add(newCluster);
@@ -178,6 +185,12 @@ public class BasicArffToDatabase implements ArffToDatabase {
 		
 	}
 	
+	
+	private int regionToCode(String region){
+		
+		return 0;
+		
+	}
 	
 	
 	

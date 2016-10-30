@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 
 import graduate.domain.Content;
+import graduate.domain.cluster.Area;
 import graduate.domain.cluster.Cluster;
 
 public class JdbcClusterDao implements ClusterDao {
@@ -29,7 +30,7 @@ public class JdbcClusterDao implements ClusterDao {
 			cluster.setId(rs.getInt("id"));
 			cluster.setCluster_id(rs.getInt("cluster_id"));
 			cluster.setCount(rs.getInt("count"));
-			cluster.setArea_id(rs.getInt("area_id"));
+			cluster.setArea(Area.valueOf(rs.getInt("area_id")));
 			
 			return cluster;
 		}
@@ -44,7 +45,7 @@ public class JdbcClusterDao implements ClusterDao {
 		// TODO Auto-generated method stub
 		this.jdbcTemplate.update("insert into cluster(cluster_id,count,area_id) "
 				+"values(?,?,?)",cluster.getCluster_id(),cluster.getCount()
-				,cluster.getArea_id());
+				,cluster.getArea().getIntCode());
 		
 	}
 
@@ -55,7 +56,7 @@ public class JdbcClusterDao implements ClusterDao {
 
 				public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 					// TODO Auto-generated method stub
-					return con.prepareStatement("select * from contents");
+					return con.prepareStatement("select * from cluster");
 				}
 				
 			}, new ResultSetExtractor<Integer>(){
@@ -63,11 +64,11 @@ public class JdbcClusterDao implements ClusterDao {
 				public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
 					// TODO Auto-generated method stub
 					rs.last();
-					return rs.getInt("content_id");
+					return rs.getInt("id");
 					
 				}});
 		}catch(RuntimeException e){
-			return 0;
+			return 1;
 		}
 	}
 
