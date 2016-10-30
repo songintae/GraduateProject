@@ -10,8 +10,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import graduate.dao.ContentDao;
 import graduate.dao.JdbcTagDao;
 import graduate.dao.TagDao;
+import graduate.dao.UserDao;
 import graduate.domain.Content;
 import graduate.domain.Tag;
+import graduate.domain.User;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -36,6 +38,8 @@ public class RemoverTest {
 	@Autowired 
 	TagDao tagDao;
 	@Autowired
+	UserDao userDao;
+	@Autowired
 	AdRemover adRemover;
 	
 	List<Tag> tags;
@@ -45,7 +49,11 @@ public class RemoverTest {
 	public void setUp(){ 
 		contentDao.deleteAll();
 		tagDao.deleteAll();
+		userDao.deleteAll();
 		
+		User user = new User();
+		user.setUser_id("choahbom");	
+		userDao.add(user);
 		
 		tags = Arrays.asList(
 				new Tag(1 , 1 ,"tag1"),
@@ -53,10 +61,10 @@ public class RemoverTest {
 				new Tag(3 , 1 ,"tag3")
 				);
 		contents = Arrays.asList(
-				new Content(1 , 1, 1, "test1"),
-				new Content(2, 2, 2 ,"test2"),
-				new Content(3, 3, 3 ,"test3"),
-				new Content(4, 4, 4 ,"test4")
+				new Content(1 , 1, 1, "test1","choahbom"),
+				new Content(2, 2, 2 ,"test2","choahbom"),
+				new Content(3, 3, 3 ,"test3","choahbom"),
+				new Content(4, 4, 4 ,"test4","choahbom")
 			);
 		
 		for(Content content : contents){

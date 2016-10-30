@@ -51,14 +51,47 @@ public class BasicPlatFormDataService implements PlatFormDataService {
 	public void setTagDao(TagDao tagDao){
 		this.tagDao = tagDao;
 	}
-	public List<Content> getAllContents() {
-		// TODO Auto-generated method stub
+	public List<Content> getAllContents(){
 		return this.contents;
+	}
+	public List<Content> getUserContents(String user_id) {
+		// TODO Auto-generated method stub
+		List<Content> userContents = new ArrayList<Content>();
+		for(Content content : this.contents ){
+			if(content.getUser_id().equals(user_id))
+			{
+				userContents.add(content);
+			}
+		}
+		return userContents;
 	}
 
 	public List<Tag> getAllTags() {
 		// TODO Auto-generated method stub
-		return this.tags;
+		List tags = new ArrayList<Tag>();
+		for(Content content : this.contents)
+		{
+			for(Tag tag : content.getTags())
+			{
+				tags.add(tag);
+			}
+		}
+		return tags;
 	}
+	
+	public List<Tag> getUserTags(String user_id){
+		
+		List tags = new ArrayList<Tag>();
+		for(Content content : this.getUserContents(user_id))
+		{
+			for(Tag tag : content.getTags())
+			{
+				tags.add(tag);
+			}
+		}
+		
+		return tags;
+	}
+	
 
 }

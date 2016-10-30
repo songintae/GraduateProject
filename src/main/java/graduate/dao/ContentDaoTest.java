@@ -14,6 +14,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 import graduate.domain.Content;
+import graduate.domain.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="/applicationContext.xml")
@@ -21,15 +22,20 @@ public class ContentDaoTest {
 	
 	@Autowired
 	ContentDao contentDao;
+	@Autowired
+	UserDao userDao;
 	
 	List<Content> contents;
 	@Before
 	public void setUp(){
+	User user = new User();
+	user.setUser_id("choahbom");	
+	userDao.add(user);
 	contents = Arrays.asList(
-			new Content(1 , 1, 1, "test1"),
-			new Content(2, 2, 2 ,"test2"),
-			new Content(3, 3, 3 ,"test3"),
-			new Content(4, 4, 4 ,"한글확인")
+			new Content(1 , 1, 1, "test1","choahbom"),
+			new Content(2, 2, 2 ,"test2","choahbom"),
+			new Content(3, 3, 3 ,"test3","choahbom"),
+			new Content(4, 4, 4 ,"한글확인","choahbom")
 		);
 	}
 	
@@ -37,6 +43,7 @@ public class ContentDaoTest {
 	public void add(){
 		
 		contentDao.deleteAll();
+		userDao.deleteAll();
 		assertThat(contentDao.getCount(), is(0));
 		
 		for(Content content : contents){
@@ -48,6 +55,7 @@ public class ContentDaoTest {
 	@Test
 	public void get(){
 		contentDao.deleteAll();
+		userDao.deleteAll();
 		assertThat(contentDao.getCount(),is(0));
 		
 		contentDao.add(contents.get(0));
@@ -73,6 +81,7 @@ public class ContentDaoTest {
 	@Test
 	public void getAll(){
 		contentDao.deleteAll();
+		userDao.deleteAll();
 		assertThat(contentDao.getCount(),is(0));
 		
 		for(Content content : contents){
@@ -92,6 +101,7 @@ public class ContentDaoTest {
 	@Test
 	public void delete(){
 		contentDao.deleteAll();
+		userDao.deleteAll();
 		
 		for(Content content : contents){
 			contentDao.add(content);
@@ -112,6 +122,7 @@ public class ContentDaoTest {
 	@Test
 	public void getLastId(){
 		contentDao.deleteAll();
+		userDao.deleteAll();
 		assertThat(contentDao.getLastId(),is(0));
 		for(Content content : contents){
 			contentDao.add(content);

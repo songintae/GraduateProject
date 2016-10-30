@@ -9,11 +9,24 @@ public class Content {
 	private int num_like;
 	private int num_tag;
 	private	String text;
+	private String user_id;
 	
 	private List<Tag> tags;
+	private User user;
 	
 	
-	
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public Content(){
 		
 	}
@@ -23,11 +36,12 @@ public class Content {
 	public void setTags(List<Tag> tags) {
 		this.tags = tags;
 	}
-	public Content(int id, int num_like , int num_tag , String text){
+	public Content(int id, int num_like , int num_tag , String text , String user_id){
 		this.id = id;
 		this.num_like = num_like;
 		this.num_tag = num_tag;
 		this.text = text;
+		this.user_id = user_id;
 	};
 	
 	

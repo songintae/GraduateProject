@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import graduate.dao.ContentDao;
 import graduate.dao.TagDao;
+import graduate.dao.UserDao;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -23,6 +24,8 @@ public class instagramTest {
 	ApplicationContext context;
 	@Autowired
 	ContentDao contentDao;
+	@Autowired
+	UserDao userDao;
 	
 	@Autowired
 	TagDao tagDao;
@@ -39,7 +42,8 @@ public class instagramTest {
 	public void instaServiceTest(){
 		tagDao.deleteAll();
 		contentDao.deleteAll();
-		instaService.GetAndRegistryData("https://api.instagram.com/v1/users/self/media/recent/?access_token=2286401760.52879a7.2fcf17a37942461da015116ed66b2e5d");
+		userDao.deleteAll();
+		instaService.GetAndRegistryData("https://api.instagram.com/v1/users/self/media/recent/?access_token=2286401760.52879a7.2fcf17a37942461da015116ed66b2e5d","choahbom");
 		
 	}
 	

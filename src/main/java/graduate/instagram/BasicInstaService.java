@@ -11,8 +11,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import graduate.dao.ContentDao;
 import graduate.dao.TagDao;
+import graduate.dao.UserDao;
 import graduate.domain.Content;
 import graduate.domain.Tag;
+import graduate.domain.User;
 
 public class BasicInstaService implements InstaService {
 	
@@ -21,6 +23,7 @@ public class BasicInstaService implements InstaService {
 	
 	private ContentDao contentDao;
 	private TagDao tagDao;
+	private UserDao userDao;
 	
 	private GetData getData;
 	
@@ -36,6 +39,10 @@ public class BasicInstaService implements InstaService {
 	public void setTagDao(TagDao tagDao){
 		this.tagDao = tagDao;
 	}
+	
+	public void setUserDao(UserDao userDao){
+		this.userDao = userDao;
+	}
 
 	public void registryContent(Content content) {
 		// TODO Auto-generated method stub
@@ -43,6 +50,8 @@ public class BasicInstaService implements InstaService {
 		this.contentDao.add(content);
 		
 	}
+	
+	
 
 	public void registryTag(Tag tag) {
 		// TODO Auto-generated method stub
@@ -50,11 +59,11 @@ public class BasicInstaService implements InstaService {
 		this.tagDao.add(tag);
 	}
 
-	public void GetAndRegistryData(String url) {
+	public void GetAndRegistryData(String url,String user_id) {
 		// TODO Auto-generated method stub
 		String next_url = url;
 		while(next_url != null){
-			next_url = this.getData.getData(next_url);
+			next_url = this.getData.getData(next_url ,user_id);
 		}
 		
 	}
@@ -69,6 +78,13 @@ public class BasicInstaService implements InstaService {
 	public int getTagLastId() {
 		// TODO Auto-generated method stub
 		return tagDao.getLastId();
+	}
+
+
+	public void registryUser(User user) {
+		// TODO Auto-generated method stub
+		System.out.println("user_id : " + user.getUser_id() );
+		this.userDao.add(user);
 	}
 	
 	

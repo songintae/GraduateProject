@@ -8,8 +8,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import graduate.dao.ContentDao;
 import graduate.dao.TagDao;
+import graduate.dao.UserDao;
 import graduate.domain.Content;
 import graduate.domain.Tag;
+import graduate.domain.User;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
@@ -34,6 +36,8 @@ public class PlatFormDataServiceTest {
 	ContentDao contentDao;
 	@Autowired
 	TagDao tagDao;
+	@Autowired
+	UserDao userDao;
 	List<Content> contents;
 	List<Tag> tags;
 	
@@ -43,11 +47,21 @@ public class PlatFormDataServiceTest {
 	
 	@Before
 	public void setUp(){
+		
 		contentDao.deleteAll();
 		tagDao.deleteAll();
+		userDao.deleteAll();
+		
+		User user = new User();
+		user.setUser_id("choahbom");
+		User user1 = new User();
+		user1.setUser_id("cho");
+		userDao.add(user);
+		userDao.add(user1);
 		contents = Arrays.asList(
-					new Content(1,1,1,"testContent1"),
-					new Content(2,2,2,"testContent2")
+					new Content(1,1,1,"testContent1","choahbom"),
+					new Content(2,2,2,"testContent2","cho")
+					
 				);
 		tags = Arrays.asList(
 					new Tag(1,1,"testTag1"),
@@ -103,5 +117,13 @@ public class PlatFormDataServiceTest {
 		assertThat(validation.getTag_id() , is(expected.getTag_id()));
 		assertThat(validation.getContent_id() , is(expected.getContent_id()));
 		assertThat(validation.getTag() , is(expected.getTag()));
+	}
+	
+	@Test
+	public void getUserContents(){
+		List<Content> getContents = this.platFormDataService.getUserContents("choahbom");
+		assertThat(getContents.size() , is(1));
+		for(Content content : getContents)
+			assertThat(content.getUser_id(), is("choahbom"));
 	}
 }

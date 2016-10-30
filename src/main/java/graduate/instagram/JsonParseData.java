@@ -19,6 +19,7 @@ import graduate.dao.ContentDao;
 import graduate.dao.TagDao;
 import graduate.domain.Content;
 import graduate.domain.Tag;
+import graduate.domain.User;
 
 
 
@@ -35,11 +36,14 @@ public class JsonParseData implements ParseData {
 	}
 	
 	
-	public String registryData(String jsonData) {
+	public String registryData(String jsonData , String user_id) {
 		// TODO Auto-generated method stub
 		
 		int tag_id = instaService.getTagLastId()+ 1;
 		int content_id = instaService.getContentLastId()+ 1;
+		User user = new User();
+		user.setUser_id(user_id);
+		instaService.registryUser(user);
 		try{
 			JSONParser parser = new JSONParser();
 			JSONObject obj = (JSONObject)parser.parse(jsonData);
@@ -49,6 +53,7 @@ public class JsonParseData implements ParseData {
 			
 			for(int i = 0; i<data.size(); i++,content_id++){
 				Content content = new Content();
+				content.setUser_id(user_id);
 				JSONObject content_data = (JSONObject)data.get(i);
 				
 				JSONObject likes = (JSONObject)content_data.get("likes");

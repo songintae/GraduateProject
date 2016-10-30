@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import graduate.domain.Content;
 import graduate.domain.Tag;
+import graduate.domain.User;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -29,6 +30,9 @@ public class TagDaoTest {
 	@Autowired
 	TagDao tagDao;
 	
+	@Autowired
+	UserDao userDao;
+	
 	//관계 때문에 생성.
 	@Autowired
 	ContentDao contentDao;
@@ -37,7 +41,11 @@ public class TagDaoTest {
 	@Before
 	public void setUp(){
 		contentDao.deleteAll();
-		Content content = new Content(1,1,1,"text");
+		userDao.deleteAll();
+		User user = new User();
+		user.setUser_id("choahbom");	
+		userDao.add(user);
+		Content content = new Content(1,1,1,"text","choahbom");
 		contentDao.add(content);
 		
 		tags = Arrays.asList(

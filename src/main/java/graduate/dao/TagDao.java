@@ -9,6 +9,7 @@ public interface TagDao {
 	public void add(Tag tag);
 	public Tag get(int id);
 	public List<Tag> getAll();
+	public List<Tag> getAll(int content_id);
 	public void delete(int id);
 	public void deleteAll();
 	public int getLastId();

@@ -31,6 +31,7 @@ public class JdbcContentDao implements ContentDao {
 			content.setNum_like(rs.getInt("num_like"));
 			content.setNum_tag(rs.getInt("num_tag"));
 			content.setText(rs.getString("text"));
+			content.setUser_id(rs.getString("user_id"));
 			return content;
 		}
 		
@@ -42,24 +43,24 @@ public class JdbcContentDao implements ContentDao {
 	public void add(Content content) {
 		// TODO Auto-generated method stub
 		
-		this.jdbcTemplate.update("insert into content(content_id,num_like,num_tag,text) values(?,?,?,?)",
-				content.getId(),content.getNum_like(),content.getNum_tag(),content.getText());
+		this.jdbcTemplate.update("insert into contents(content_id,num_like,num_tag,text,user_id) values(?,?,?,?,?)",
+				content.getId(),content.getNum_like(),content.getNum_tag(),content.getText(),content.getUser_id());
 		
 	}
 
 	public Content get(int id) {
 		// TODO Auto-generated method stub
-		return this.jdbcTemplate.queryForObject("select * from content where content_id ="+id, this.contentMapper);
+		return this.jdbcTemplate.queryForObject("select * from contents where content_id ="+id, this.contentMapper);
 	}
 
 	public void delete(int id) {
 		// TODO Auto-generated method stub
-		this.jdbcTemplate.update("delete from content where content_id = ?",id);
+		this.jdbcTemplate.update("delete from contents where content_id = ?",id);
 	}
 	
 	public void deleteAll() {
 		// TODO Auto-generated method stub
-		this.jdbcTemplate.update("delete from content");
+		this.jdbcTemplate.update("delete from contents");
 	}
 	public int getCount() {
 		// TODO Auto-generated method stub
@@ -67,7 +68,7 @@ public class JdbcContentDao implements ContentDao {
 
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				// TODO Auto-generated method stub
-				return con.prepareStatement("select count(*) from content");
+				return con.prepareStatement("select count(*) from contents");
 			}
 			
 		}, new ResultSetExtractor<Integer>(){
@@ -79,9 +80,13 @@ public class JdbcContentDao implements ContentDao {
 				return rs.getInt(1);
 			}});
 	}
+	public List<Content> getAll(String user_id) {
+		// TODO Auto-generated method stub
+		return this.jdbcTemplate.query("select * from contents where user_id ="+user_id,this.contentMapper);
+	}
 	public List<Content> getAll() {
 		// TODO Auto-generated method stub
-		return this.jdbcTemplate.query("select * from content",this.contentMapper);
+		return this.jdbcTemplate.query("select * from contents",this.contentMapper);
 	}
 	public int getLastId() {
 		// TODO Auto-generated method stub
@@ -91,7 +96,7 @@ public class JdbcContentDao implements ContentDao {
 
 				public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 					// TODO Auto-generated method stub
-					return con.prepareStatement("select * from content");
+					return con.prepareStatement("select * from contents");
 				}
 				
 			}, new ResultSetExtractor<Integer>(){

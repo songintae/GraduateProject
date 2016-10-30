@@ -16,7 +16,7 @@ public class HttpGetData implements GetData{
 		this.parseData = parseData;
 	}
 	
-	public String getData(String url)  {
+	public String getData(String url, String user_id)  {
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		HttpGet getRequest = new HttpGet(url);
 		getRequest.addHeader("accept","application/json");
@@ -33,7 +33,7 @@ public class HttpGetData implements GetData{
 			}
 			
 		
-			return parseData.registryData(json);
+			return parseData.registryData(json , user_id);
 			
 			
 		}catch(ClientProtocolException e){

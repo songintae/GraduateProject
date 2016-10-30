@@ -9,7 +9,7 @@ public class BasicUserService implements UserService{
 
 	private PlatFormDataService platformDataService;
 	
-	public void setPlatformDataService(PlatFormDataService platformDataService) {
+	public void setPlatFormDataService(PlatFormDataService platformDataService) {
 		this.platformDataService = platformDataService;
 	}
 
