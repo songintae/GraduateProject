@@ -1,11 +1,16 @@
 package graduate.dao.cluster;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 
 import graduate.domain.Content;
@@ -41,6 +46,29 @@ public class JdbcClusterDao implements ClusterDao {
 				+"values(?,?,?)",cluster.getCluster_id(),cluster.getCount()
 				,cluster.getArea_id());
 		
+	}
+
+	public int getLastId() {
+		// TODO Auto-generated method stub
+		try{
+			return this.jdbcTemplate.query(new PreparedStatementCreator(){
+
+				public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+					// TODO Auto-generated method stub
+					return con.prepareStatement("select * from contents");
+				}
+				
+			}, new ResultSetExtractor<Integer>(){
+
+				public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+					// TODO Auto-generated method stub
+					rs.last();
+					return rs.getInt("content_id");
+					
+				}});
+		}catch(RuntimeException e){
+			return 0;
+		}
 	}
 
 }
