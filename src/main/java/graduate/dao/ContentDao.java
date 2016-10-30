@@ -11,7 +11,6 @@ public interface ContentDao {
 	public void add(Content content);
 	public Content get(int id);
 	public void delete(int id);
-	public List<Content> getAll(String user_id);
 	public List<Content> getAll();
 	public int getLastId();
 	
