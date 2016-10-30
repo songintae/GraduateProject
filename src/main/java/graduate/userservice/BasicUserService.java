@@ -9,13 +9,13 @@ public class BasicUserService implements UserService{
 
 	private PlatFormDataService platFormDataService;
 	
-<<<<<<< .merge_file_3p5xYk
-	public void setPlatFormDataService(PlatFormDataService platformDataService) {
-		this.platformDataService = platformDataService;
-=======
+
+	public void setPlatFormDataService1(PlatFormDataService platformDataService) {
+		this.platFormDataService = platformDataService;
+	}
 	public void setPlatFormDataService(PlatFormDataService platFormDataService) {
 		this.platFormDataService = platFormDataService;
->>>>>>> .merge_file_3pLB2J
+
 	}
 
 	public HashMap<String, Integer> getTagCount() {

@@ -59,7 +59,16 @@
     <property name="removeSurrogateArea" ref="removeSurrogateArea" />
   </bean>
 
-  <bean id="dataSource"
+  <bean id="instaDataSource"
+    class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+    <property name="driverClass" value="com.mysql.jdbc.Driver" />
+    <property name="url"
+     value="jdbc:mysql://localhost:3306/instadata?useSSL=false" />
+     <property name="username" value="root" />
+     <property name="password" value="song9207108" />
+   </bean>
+
+  <bean id="userDataSource"
     class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
     <property name="driverClass" value="com.mysql.jdbc.Driver" />
     <property name="url"
@@ -67,5 +76,14 @@
      <property name="username" value="root" />
      <property name="password" value="song9207108" />
    </bean>
+
+   <bean id="clusterDataSource"
+     class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+     <property name="driverClass" value="com.mysql.jdbc.Driver" />
+     <property name="url"
+      value="jdbc:mysql://localhost:3306/cluster?useSSL=false" />
+      <property name="username" value="root" />
+      <property name="password" value="song9207108" />
+    </bean>
 
  </beans>
