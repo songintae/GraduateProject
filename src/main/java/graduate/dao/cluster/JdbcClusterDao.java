@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -70,6 +71,12 @@ public class JdbcClusterDao implements ClusterDao {
 		}catch(RuntimeException e){
 			return 1;
 		}
+	}
+
+	@Override
+	public List<Cluster> getAll() {
+		List<Cluster> clusters = this.jdbcTemplate.query("select * from cluster", contentMapper);
+		return clusters;
 	}
 
 }

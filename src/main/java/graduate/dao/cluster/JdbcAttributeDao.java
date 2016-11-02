@@ -2,6 +2,7 @@ package graduate.dao.cluster;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -41,6 +42,12 @@ private JdbcTemplate jdbcTemplate;
 				+"values(?,?,?)", attribute.getCount(),attribute.getTag()
 				,attribute.getCluster_id());
 		
+	}
+
+	@Override
+	public List<Attribute> getAll(int cluster_id) {
+		List<Attribute> attributes = this.jdbcTemplate.query("select * from Attribute where cluster_id="+cluster_id, contentMapper);
+		return attributes;
 	}
 
 }

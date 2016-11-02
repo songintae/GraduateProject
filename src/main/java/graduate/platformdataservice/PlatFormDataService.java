@@ -14,6 +14,7 @@ public interface PlatFormDataService {
 	public List<Content> getUserContents(String user_id);
 	
 	public List<Tag> getAllTags();
+	
 	public List<Tag> getUserTags(String user_id);
 	
 	
