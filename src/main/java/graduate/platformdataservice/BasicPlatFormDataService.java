@@ -176,7 +176,6 @@ public class BasicPlatFormDataService implements PlatFormDataService {
 				}
 			}
 		}
-		System.out.println("test"+attributes.size());
 		return attributes;
 	}
 	@Override
