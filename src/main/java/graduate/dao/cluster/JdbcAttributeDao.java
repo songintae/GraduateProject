@@ -16,7 +16,7 @@ public class JdbcAttributeDao implements AttributeDao {
 	
 private JdbcTemplate jdbcTemplate; 
 	
-	private RowMapper<Attribute> contentMapper = new RowMapper<Attribute>(){
+	private RowMapper<Attribute> attributeMapper = new RowMapper<Attribute>(){
 
 		public Attribute mapRow(ResultSet rs, int arg1) throws SQLException {
 			// TODO Auto-generated method stub
@@ -26,6 +26,9 @@ private JdbcTemplate jdbcTemplate;
 			attribute.setCount(rs.getInt("count"));
 			attribute.setTag(rs.getString("tag"));
 			attribute.setCluster_id(rs.getInt("cluster_id"));
+			attribute.setTf_score(rs.getDouble("tf_score"));
+			attribute.setIdf_score(rs.getDouble("idf_socre"));
+			attribute.setTf_idf_score(rs.getDouble("tf_idf_score"));
 			
 			return attribute;
 		}
@@ -45,9 +48,29 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public List<Attribute> getAll(int cluster_id) {
-		List<Attribute> attributes = this.jdbcTemplate.query("select * from Attribute where cluster_id="+cluster_id, contentMapper);
-		return attributes;
+	public List<Attribute> getAll() {
+		// TODO Auto-generated method stub
+		return this.jdbcTemplate.query("select * from attribute" , this.attributeMapper);
+		
+	}
+
+	@Override
+	public List<Attribute> get(int area_id) {
+		// TODO Auto-generated method stub
+		return this.jdbcTemplate.query("select attribute.id , attribute.tag , attribute.count , attribute.cluster_id "
+		+"attribute.tf_score , attribute.idf_score , attribute.tf_idf_score from cluster INNER JOIN attribute where cluster.cluster_id = attribute.cluster_id and area_id ="+area_id,this.attributeMapper);
+	}
+
+	@Override
+	public void update(Attribute attribute) {
+		// TODO Auto-generated method stub
+		this.jdbcTemplate.update("update attribute where id = ? "
+				+ "set tag = ? count = ? cluster_id = ? "
+				+ "tf_score = ? idf_score = ? tf_idf_score = ?",
+				attribute.getId(),attribute.getTag(), attribute.getCount(),
+				attribute.getCluster_id(), attribute.getTf_score() , attribute.getIdf_score()
+				,attribute.getTf_idf_score());
+		
 	}
 
 }

@@ -8,5 +8,7 @@ public interface ClusterDao {
 	
 	public void add(Cluster cluster);
 	public int getLastId();
-	public List<Cluster> getAll();	//임시
+	
+	public List<Cluster> getAll();
+	public List<Cluster> get(int area_id);
 }

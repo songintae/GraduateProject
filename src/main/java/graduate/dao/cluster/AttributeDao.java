@@ -6,5 +6,9 @@ import graduate.domain.cluster.Attribute;
 public interface AttributeDao {
 	
 	public void add(Attribute attribute);
-	public List<Attribute> getAll(int cluster_id); //임시
+	public List<Attribute> getAll();
+	public List<Attribute> get(int area_id);
+	
+	public void update(Attribute attribute);
+	
 }

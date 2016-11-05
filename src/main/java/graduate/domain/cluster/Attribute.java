@@ -5,13 +5,12 @@ public class Attribute {
 	String tag;
 	int count;
 	int cluster_id;
-	Cluster cluster;
+	
 	double tf_score;
 	double idf_score;
 	double tf_idf_score;
 	
 	
-
 	public double getTf_score() {
 		return tf_score;
 	}
@@ -35,6 +34,8 @@ public class Attribute {
 	public void setTf_idf_score(double tf_idf_score) {
 		this.tf_idf_score = tf_idf_score;
 	}
+
+	Cluster cluster;
 
 	public int getId() {
 		return id;

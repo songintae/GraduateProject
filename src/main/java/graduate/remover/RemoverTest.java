@@ -33,7 +33,7 @@ public class RemoverTest {
 	ApplicationContext context;
 	@Autowired
 	Remover noiseRemover;
-	@Autowired
+	@Autowired 
 	ContentDao contentDao;
 	@Autowired 
 	TagDao tagDao;

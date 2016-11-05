@@ -94,75 +94,74 @@ public class BasicAreaTfIdf implements AreaTfIdfService {
 
 	@Override
 	public void settingTfIdf(List<String> strAreas) {
-//		List<Area> areas = new ArrayList<Area>();
-//		for(String strArea : strAreas){
-//			areas.add(Area.valueOf(strArea));
-//		}
-//		
-//		for(Area area : areas){
-//			List<Attribute> attributes = platFormDataService.getAttributes(area.getIntCode());
-//			for(Attribute attr : attributes){
-//				attr.setTfIdf(attr.getTf()*attr.getIdf());
-//				platFormDataService.update(attr);
-//			}
-//		}
-	}
-
-	private double countTagInArea(List<Area> areas, String tag) {
-		List<Attribute> attributes;
-		double count = 0.0;
-		
-		List<Cluster> clusters = clusterDao.getAll();
+		List<Area> areas = new ArrayList<Area>();
+		for(String strArea : strAreas){
+			areas.add(Area.getStringToArea(strArea));
+		}
 		
 		for(Area area : areas){
-			for(Cluster cluster : clusters){
-				attributes = attributeDao.getAll(cluster.getCluster_id());
-				if(cluster.getArea().getArea().equals(area.getArea())){
-					for (Attribute attribute : attributes) {
-						if (attribute.getTag().equals(tag)){
-							count++;
-							break;					
-						}
-					}
-				}
-			}
-		}
-		System.out.println(tag + " count : " + count);
-		return count;
-	}
-	
-	
-	@Override
-	public void tfIdf(List<String> strAreas, String strArea) {
-		
-		List<Cluster> clusters = clusterDao.getAll();
-		
-		List<Area> areas = new ArrayList<Area>();
-		// areas 초기화
-		for (String area : strAreas) {
-			areas.add(Area.getStringToArea(area));
-		}
-		
-		// 점수 매길 area의 태그들
-		Area area = Area.getStringToArea(strArea);
-		List<Attribute> attributes = null;
-		
-		double sum = getSumOfTagCount(clusters);
-		for (Cluster cluster : clusters) {
-			if(cluster.getArea().getArea().equals(area.getArea())){	//지역 클러스터 같으면
-				attributes = attributeDao.getAll(cluster.getCluster_id());
-				double idfCount = 0.0;
-				for (Attribute attribute : attributes) {
-					attribute.setTf_score(attribute.getCount() / sum);
-					idfCount = countTagInArea(areas, attribute.getTag());
-					if (idfCount > 0) {
-						attribute.setIdf_score(Math.log10(strAreas.size() / idfCount));
-						attribute.setTf_idf_score(attribute.getTf_score()*attribute.getIdf_score());
-					}
-					//System.out.println(attribute.getTag() +" : "+ attribute.getTf_idf_score());
-				}
+			List<Attribute> attributes = platFormDataService.getAttribute(area.getIntCode());
+			for(Attribute attr : attributes){
+				attr.setTf_idf_score(attr.getTf_score()*attr.getIdf_score());
+				platFormDataService.update(attr);
 			}
 		}
 	}
+
+//	private double countTagInArea(List<Area> areas, String tag) {
+//		List<Attribute> attributes;
+//		double count = 0.0;
+//		
+//		List<Cluster> clusters = clusterDao.getAll();
+//		
+//		for(Area area : areas){
+//			for(Cluster cluster : clusters){
+//				attributes = attributeDao.getAll(cluster.getCluster_id());
+//				if(cluster.getArea().getArea().equals(area.getArea())){
+//					for (Attribute attribute : attributes) {
+//						if (attribute.getTag().equals(tag)){
+//							count++;
+//							break;					
+//						}
+//					}
+//				}
+//			}
+//		}
+//		System.out.println(tag + " count : " + count);
+//		return count;
+//	}
+	
+	
+//	@Override
+//	public void tfIdf(List<String> strAreas, String strArea) {
+//		
+//		List<Cluster> clusters = clusterDao.getAll();
+//		
+//		List<Area> areas = new ArrayList<Area>();
+//		// areas 초기화
+//		for (String area : strAreas) {
+//			areas.add(Area.getStringToArea(area));
+//		}
+//		
+//		// 점수 매길 area의 태그들
+//		Area area = Area.getStringToArea(strArea);
+//		List<Attribute> attributes = null;
+//		
+//		double sum = getSumOfTagCount(clusters);
+//		for (Cluster cluster : clusters) {
+//			if(cluster.getArea().getArea().equals(area.getArea())){	//지역 클러스터 같으면
+//				attributes = attributeDao.getAll(cluster.getCluster_id());
+//				double idfCount = 0.0;
+//				for (Attribute attribute : attributes) {
+//					attribute.setTf_score(attribute.getCount() / sum);
+//					idfCount = countTagInArea(areas, attribute.getTag());
+//					if (idfCount > 0) {
+//						attribute.setIdf_score(Math.log10(strAreas.size() / idfCount));
+//						attribute.setTf_idf_score(attribute.getTf_score()*attribute.getIdf_score());
+//					}
+//				}
+//			}
+//		}
+//	}
 
 }

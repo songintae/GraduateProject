@@ -1,10 +1,22 @@
 package graduate.domain.cluster;
 
+import java.util.List;
+
 public class Cluster {
 	int id;
 	int cluster_id;
 	int count;
 	Area area;
+	
+	List<Attribute> attributes;
+
+	public List<Attribute> getAttributes() {
+		return attributes;
+	}
+
+	public void setAttributes(List<Attribute> attributes) {
+		this.attributes = attributes;
+	}
 
 	public int getId() {
 		return id;
