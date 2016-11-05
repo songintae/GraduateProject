@@ -9,9 +9,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import graduate.dao.ContentDao;
 import graduate.dao.TagDao;
 import graduate.dao.UserDao;
+import graduate.dao.cluster.AttributeDao;
 import graduate.domain.Content;
 import graduate.domain.Tag;
 import graduate.domain.User;
+import graduate.domain.cluster.Attribute;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
@@ -38,6 +40,8 @@ public class PlatFormDataServiceTest {
 	TagDao tagDao;
 	@Autowired
 	UserDao userDao;
+	@Autowired
+	AttributeDao attributeDao;
 	List<Content> contents;
 	List<Tag> tags;
 	
@@ -125,5 +129,13 @@ public class PlatFormDataServiceTest {
 		assertThat(getContents.size() , is(1));
 		for(Content content : getContents)
 			assertThat(content.getUser_id(), is("choahbom"));
+	}
+	
+	@Test
+	public void getAttribute(){
+		List<Attribute> attribute = this.platFormDataService.getAttribute(11);
+		assertThat(attribute.get(0).getCluster().getArea().getArea() , is("전주"));
+		assertThat(attribute.size(),is(1018));
+		
 	}
 }

@@ -83,7 +83,7 @@ public class JdbcClusterDao implements ClusterDao {
 	@Override
 	public List<Cluster> get(int area_id) {
 		// TODO Auto-generated method stub
-		return this.jdbcTemplate.query("select * from cluster where area_id = "+area_id, this.clusterMapper);
+		return this.jdbcTemplate.query("select * from cluster where area_id ="+area_id, this.clusterMapper);
 	}
 
 }
