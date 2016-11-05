@@ -17,6 +17,7 @@ public interface PlatFormDataService {
 	
 	//지역별로 받아오
 	public List<Cluster> getClusters(int area_id);
+	public List<Attribute> getAttribute(int area_id);
 	
 	//전체 클러스터 받아오기.
 	public List<Cluster> getAllCluster();

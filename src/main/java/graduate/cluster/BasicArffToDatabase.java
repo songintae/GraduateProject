@@ -81,7 +81,7 @@ public class BasicArffToDatabase implements ArffToDatabase {
 			
 			
 			stmt = conn.createStatement();
-			String sql = "select * from (select tag , count(*) as count from "+region+" where content_id in(select content_id from "+region+" where tag = "+area.getArea()+") group by tag) as test1 where count >10;";
+			String sql = "select * from (select tag , count(*) as count from "+region+" where content_id in(select content_id from "+region+" where tag = '"+area.getArea()+"') group by tag) as test1 where count >10;";
 			rs = stmt.executeQuery(sql);
 			rs.last();
 			Tag tags[] = new Tag[rs.getRow()];
@@ -117,11 +117,11 @@ public class BasicArffToDatabase implements ArffToDatabase {
 			}
 			
 			double[] result = eval.getClusterAssignments();
-			for(i = 0; i<result.length; i++)
-			{
-				clusters[(int)result[i]].add(tags[i]);
-				
-			}
+            for(i = 0; i<result.length; i++)
+            {
+               clusters[(int)result[i]].add(tags[i]);
+               
+            }
 			Comparator<Tag> sort = new Comparator<Tag>()
 			{
 
