@@ -22,8 +22,7 @@ public class AreaTfIdfServiceTest {
 		areas.add("gangneung");
 		areas.add("boseong");
 		areas.add("andong");
-		areas.add("gunsan");
 		
-		areaTfIdfService.tfIdf(areas,"gangneung");
+		areaTfIdfService.tfIdf(areas, "gangneung");
 	}
 }

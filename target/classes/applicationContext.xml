@@ -6,7 +6,7 @@
   http://www.springframework.org/schema/context
   http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id ="areaTfIdfService" class="graduate.tfidf.BasicAreaTfIdf">
+  <bean id="AreaTfIdfService" class="graduate.tfidf.BasicAreaTfIdf">
     <property name ="platFormDataService" ref="platFormDataService"/>
     <property name = "clusterDao" ref = "clusterDao"/>
     <property name = "attributeDao" ref ="attributeDao"/>
@@ -20,8 +20,6 @@
 
   <bean id="userService" class="graduate.userservice.BasicUserService">
     <property name ="platFormDataService" ref="platFormDataService"/>
-    <property name = "clusterDao" ref = "clusterDao"/>
-    <property name = "attributeDao" ref ="attributeDao"/>
   </bean>
   <bean id="tagDupRemover" class="graduate.cluster.BasicTagDupRemover">
     <property name ="platFormDataService" ref="platFormDataService"/>
@@ -35,12 +33,12 @@
 
   <bean id="noiseRemover" class="graduate.remover.NoiseRemover">
     <property name="tagDao" ref="tagDao" />
-    <property name="noisePath" value="nonWord1.txt" />
+    <property name="noisePath" value="noiseRemoverTest.txt" />
   </bean>
 
   <bean id="adRemover" class="graduate.remover.AdRemover">
     <property name="contentDao" ref="contentDao" />
-    <property name="adRemoverPath" value="AdDictionaryE.txt" />
+    <property name="adRemoverPath" value="adRemvoerPathTest.txt" />
   </bean>
 
 

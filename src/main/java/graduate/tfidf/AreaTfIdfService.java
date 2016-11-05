@@ -14,6 +14,6 @@ public interface AreaTfIdfService {
 	public void settingTfIdf(List<String> areas);
 	
 	//tf-idf 점수 한방에 다 하는거
-//	public void tfIdf(List<String> areas, String area);
+	public void tfIdf(List<String> areas, String area);
 
 }

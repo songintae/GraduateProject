@@ -28,5 +28,7 @@ public interface PlatFormDataService {
 	
 	public List<Tag> getUserTags(String user_id);
 	
+	public void attributeUpdate(Attribute attribute);
+	
 	
 }
