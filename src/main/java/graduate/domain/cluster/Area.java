@@ -48,7 +48,7 @@ public enum Area {
 			return GANGNEUNG;
 		else if(region.equals("gyeongju"))
 				return GYEONGJU;
-		else if(region.equals("gUNSAN"))
+		else if(region.equals("gunsan"))
 			return GUNSAN;
 		else if(region.equals("danyang"))
 			return DANYANG;

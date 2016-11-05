@@ -5,8 +5,36 @@ public class Attribute {
 	String tag;
 	int count;
 	int cluster_id;
-	
 	Cluster cluster;
+	double tf_score;
+	double idf_score;
+	double tf_idf_score;
+	
+	
+
+	public double getTf_score() {
+		return tf_score;
+	}
+
+	public void setTf_score(double tf_score) {
+		this.tf_score = tf_score;
+	}
+
+	public double getIdf_score() {
+		return idf_score;
+	}
+
+	public void setIdf_score(double idf_score) {
+		this.idf_score = idf_score;
+	}
+
+	public double getTf_idf_score() {
+		return tf_idf_score;
+	}
+
+	public void setTf_idf_score(double tf_idf_score) {
+		this.tf_idf_score = tf_idf_score;
+	}
 
 	public int getId() {
 		return id;
