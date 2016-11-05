@@ -9,4 +9,6 @@ public interface AttributeDao {
 	public List<Attribute> getAll();
 	public List<Attribute> get(int area_id);
 	
+	public void update(Attribute attribute);
+	
 }
