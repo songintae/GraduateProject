@@ -2,6 +2,7 @@ package graduate.dao.cluster;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -15,7 +16,7 @@ public class JdbcAttributeDao implements AttributeDao {
 	
 private JdbcTemplate jdbcTemplate; 
 	
-	private RowMapper<Attribute> contentMapper = new RowMapper<Attribute>(){
+	private RowMapper<Attribute> attributeMapper = new RowMapper<Attribute>(){
 
 		public Attribute mapRow(ResultSet rs, int arg1) throws SQLException {
 			// TODO Auto-generated method stub
@@ -41,6 +42,19 @@ private JdbcTemplate jdbcTemplate;
 				+"values(?,?,?)", attribute.getCount(),attribute.getTag()
 				,attribute.getCluster_id());
 		
+	}
+
+	@Override
+	public List<Attribute> getAll() {
+		// TODO Auto-generated method stub
+		return this.jdbcTemplate.query("select * from attribute" , this.attributeMapper);
+		
+	}
+
+	@Override
+	public List<Attribute> get(int area_id) {
+		// TODO Auto-generated method stub
+		return this.jdbcTemplate.query("select attribute.id , attribute.tag , attribute.count , attribute.cluster_id from cluster INNER JOIN attribute where cluster.cluster_id = attribute.cluster_id and area_id ="+area_id,this.attributeMapper);
 	}
 
 }

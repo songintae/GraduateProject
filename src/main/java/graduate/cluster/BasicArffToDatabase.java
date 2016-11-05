@@ -163,6 +163,15 @@ public class BasicArffToDatabase implements ArffToDatabase {
 			
 			
 		}catch(SQLException e){
+			try
+			{
+				rs.close();
+				ps.close();
+				conn.close();
+			}catch(SQLException ex){
+				throw new RuntimeException(e);
+			}
+			
 			throw new RuntimeException(e);
 		}catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -170,30 +179,9 @@ public class BasicArffToDatabase implements ArffToDatabase {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new RuntimeException(e);
-		}finally{
-			try{
-				rs.close();
-				stmt.close();
-				conn.close();
-			}catch(SQLException e){
-				throw new RuntimeException(e);
-			}
-			
-			
 		}
-		
-		
+			
 	}
-	
-	
-	private int regionToCode(String region){
 		
-		return 0;
-		
-	}
-	
-	
-	
-	
 	
 }

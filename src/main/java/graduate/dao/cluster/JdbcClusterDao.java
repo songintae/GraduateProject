@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -21,7 +22,7 @@ public class JdbcClusterDao implements ClusterDao {
 	
 	private JdbcTemplate jdbcTemplate; 
 	
-	private RowMapper<Cluster> contentMapper = new RowMapper<Cluster>(){
+	private RowMapper<Cluster> clusterMapper = new RowMapper<Cluster>(){
 
 		public Cluster mapRow(ResultSet rs, int arg1) throws SQLException {
 			// TODO Auto-generated method stub
@@ -70,6 +71,19 @@ public class JdbcClusterDao implements ClusterDao {
 		}catch(RuntimeException e){
 			return 1;
 		}
+	}
+
+	@Override
+	public List<Cluster> getAll() {
+		// TODO Auto-generated method stub
+		return this.jdbcTemplate.query("select * from cluster", this.clusterMapper);
+	
+	}
+
+	@Override
+	public List<Cluster> get(int area_id) {
+		// TODO Auto-generated method stub
+		return this.jdbcTemplate.query("select * from cluster where area_id = "+area_id, this.clusterMapper);
 	}
 
 }

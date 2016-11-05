@@ -12,18 +12,46 @@ import javax.annotation.PostConstruct;
 
 import graduate.dao.ContentDao;
 import graduate.dao.TagDao;
+import graduate.dao.cluster.AttributeDao;
+import graduate.dao.cluster.ClusterDao;
 import graduate.domain.Content;
 import graduate.domain.Tag;
+import graduate.domain.cluster.Area;
+import graduate.domain.cluster.Attribute;
+import graduate.domain.cluster.Cluster;
 
 public class BasicPlatFormDataService implements PlatFormDataService {
 	public ContentDao contentDao;
 	public TagDao tagDao;
+	public ClusterDao clusterDao;
+	public AttributeDao attributeDao;
 	
 	private List<Content> contents;
 	private List<Tag> tags;
+	
+	
+	
+	
+	
+	public void setContentDao(ContentDao contentDao){
+		this.contentDao = contentDao;
+	}
+	public void setTagDao(TagDao tagDao){
+		this.tagDao = tagDao;
+	}
+	public void setClusterDao(ClusterDao clusterDao){
+		this.clusterDao = clusterDao;
+	}
+	public void setAttributeDao(AttributeDao attributeDao){
+		this.attributeDao = attributeDao;
+	}
+	public List<Content> getAllContents(){
+		return this.contents;
+	}
 
 	@PostConstruct
 	public void setUp(){
+		
 		
 		contents = contentDao.getAll();
 		tags = tagDao.getAll();
@@ -45,15 +73,7 @@ public class BasicPlatFormDataService implements PlatFormDataService {
 		
 		
 	}
-	public void setContentDao(ContentDao contentDao){
-		this.contentDao = contentDao;
-	}
-	public void setTagDao(TagDao tagDao){
-		this.tagDao = tagDao;
-	}
-	public List<Content> getAllContents(){
-		return this.contents;
-	}
+	
 	public List<Content> getUserContents(String user_id) {
 		// TODO Auto-generated method stub
 		List<Content> userContents = new ArrayList<Content>();
@@ -91,6 +111,60 @@ public class BasicPlatFormDataService implements PlatFormDataService {
 		}
 		
 		return tags;
+	}
+	@Override
+	public List<Cluster> getClusters(int area_id) {
+		// TODO Auto-generated method stub
+		List<Cluster> clusters = clusterDao.get(area_id);
+		List<Attribute> attributes = attributeDao.get(area_id);
+		
+		
+		return mapCluster(clusters, attributes);
+	}
+
+	
+	
+	@Override
+	public List<Cluster> getAllCluster() {
+		// TODO Auto-generated method stub
+		List<Cluster> clusters = clusterDao.getAll();
+		List<Attribute> attributes = attributeDao.getAll();
+		
+		return mapCluster(clusters , attributes);
+	
+	}
+	@Override
+	public List<Attribute> getAllAttribute() {
+		// TODO Auto-generated method stub
+		List<Cluster> clusters = clusterDao.getAll();
+		List<Attribute> attributes = attributeDao.getAll();
+		
+		return mapAttribute(clusters, attributes);
+	}
+	
+	private List<Cluster> mapCluster(List<Cluster> clusters , List<Attribute> attributes){
+		List<Attribute> rlAttribute = new ArrayList<Attribute>();
+		for(Cluster cluster : clusters){
+			for(Attribute attribute : attributes){
+				if(cluster.getCluster_id() == attribute.getCluster_id()){
+					rlAttribute.add(attribute);
+				}
+			}
+			cluster.setAttributes(rlAttribute);
+			rlAttribute.clear();
+		}
+		return clusters;
+	}
+	
+	private List<Attribute> mapAttribute(List<Cluster> clusters , List<Attribute> attributes){
+		for(Attribute attribute : attributes){
+			for(Cluster cluster : clusters){
+				if(cluster.getCluster_id() == attribute.getCluster_id()){
+					attribute.setCluster(cluster);
+				}
+			}
+		}
+		return attributes;
 	}
 	
 
