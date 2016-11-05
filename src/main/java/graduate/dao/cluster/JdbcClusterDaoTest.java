@@ -29,7 +29,7 @@ public class JdbcClusterDaoTest {
 	
 	@Test
 	public void getAttributeTest(){
-		List<Attribute> attributes = attributeDao.getAll(1);
+		List<Attribute> attributes = attributeDao.getAll();
 		System.out.println(attributes.get(0).getTag());
 	}
 }

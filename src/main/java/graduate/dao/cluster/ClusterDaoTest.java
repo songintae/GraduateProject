@@ -34,7 +34,7 @@ public class ClusterDaoTest {
 	public void clusterGetAllTest(){
 		
 		List<Cluster> clusters = clusterDao.getAll();
-		assertThat(clusters.size() , is(26));
+		assertThat(clusters.size() , is(63));
 		
 		
 	}
@@ -43,7 +43,7 @@ public class ClusterDaoTest {
 	public void attributeGetAllTest(){
 		
 		List<Attribute> attributes = attributeDao.getAll();
-		assertThat(attributes.size() , is(1425));
+		assertThat(attributes.size() , is(1854));
 		
 	}
 	
@@ -53,7 +53,7 @@ public class ClusterDaoTest {
 		assertThat(clusters.size() , is(0));
 		
 		clusters = clusterDao.get(11);
-		assertThat(clusters.size() , is(26));
+		assertThat(clusters.size() , is(20));
 	}
 	
 	@Test
@@ -63,7 +63,7 @@ public class ClusterDaoTest {
 		assertThat(attributes.size() , is(0));
 		
 		attributes = attributeDao.get(11);
-		assertThat(attributes.size(),is(1425));
+		assertThat(attributes.size(),is(1018));
 	}
 	
 	

@@ -25,9 +25,9 @@ private JdbcTemplate jdbcTemplate;
 			attribute.setId(rs.getInt("id"));
 			attribute.setCount(rs.getInt("count"));
 			attribute.setTag(rs.getString("tag"));
-			attribute.setCluster_id(rs.getInt("cluster_id"));
+			attribute.setCluster_id(rs.getInt("cluster_id"));		
 			attribute.setTf_score(rs.getDouble("tf_score"));
-			attribute.setIdf_score(rs.getDouble("idf_socre"));
+			attribute.setIdf_score(rs.getDouble("idf_score"));
 			attribute.setTf_idf_score(rs.getDouble("tf_idf_score"));
 			
 			return attribute;
@@ -57,8 +57,8 @@ private JdbcTemplate jdbcTemplate;
 	@Override
 	public List<Attribute> get(int area_id) {
 		// TODO Auto-generated method stub
-		return this.jdbcTemplate.query("select attribute.id , attribute.tag , attribute.count , attribute.cluster_id "
-		+"attribute.tf_score , attribute.idf_score , attribute.tf_idf_score from cluster INNER JOIN attribute where cluster.cluster_id = attribute.cluster_id and area_id ="+area_id,this.attributeMapper);
+		System.out.println(area_id);
+		return this.jdbcTemplate.query("select attribute.id , attribute.tag , attribute.count , attribute.cluster_id, attribute.tf_score , attribute.idf_score , attribute.tf_idf_score from cluster INNER JOIN attribute where cluster.cluster_id = attribute.cluster_id and cluster.area_id = "+area_id,this.attributeMapper);
 	}
 
 	@Override
