@@ -83,7 +83,7 @@ public class BasicInstaService implements InstaService {
 
 	public void registryUser(User user) {
 		// TODO Auto-generated method stub
-		System.out.println("user_id : " + user.getUser_id() );
+		
 		this.userDao.add(user);
 	}
 	
