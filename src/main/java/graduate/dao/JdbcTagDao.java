@@ -53,6 +53,7 @@ public class JdbcTagDao implements TagDao  {
 	public Tag get(int id) {
 		// TODO Auto-generated method stub
 		return this.jdbcTemplate.queryForObject("select * from tags where tag_id = "+id,this.tagMapper);
+		
 	}
 	public List<Tag> getAll() {
 		// TODO Auto-generated method stub

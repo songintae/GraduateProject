@@ -1,9 +1,12 @@
+package graduate.cluster;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
@@ -26,38 +29,36 @@ import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;
 
+
+//망한코드!
 public class WekaService {
-  WekaDao dao;
+//  WekaDao dao;
   String[] options = new String[2];
 
   public void setOptions(String op1, String op2){
     options[0] = op1;
     options[1] = op2;
   }
+//
+//  public void setWekaDao(WekaDao dao){
+//    this.dao = dao;
+//  }
+//
+//  public void makeArff(){
+//    Instances testSet = dao.getInstances();
+//
+//    BufferedWriter bufOut = new BufferedWriter(new OutputStreamWriter(
+//      new FileOutputStream("busan.arff"), "UTF-8"));
+//
+//    bufOut.write(testSet.toString());
+//    bufOut.close();
+//  }
 
-  public void setWekaDao(WekaDao dao){
-    this.dao = dao;
-  }
-
-  public void makeArff(){
-    Instances testSet = dao.getInstances();
-
-    BufferedWriter bufOut = new BufferedWriter(new OutputStreamWriter(
-      new FileOutputStream("busan.arff"), "UTF-8"));
-
-    bufOut.write(testSet.toString());
-    bufOut.close();
-  }
-
-  public ClusterEvaluation analyze(String fileName){
+  public ClusterEvaluation analyze(String fileName) throws Exception{
     //파일에서 바로가져오기
     ArffLoader loder = new ArffLoader();
     loder.setFile(new File(fileName));
     Instances testSet = loder.getDataSet();
-
-    //    EM cluster = new EM();
-    //    cluster.setOptions(options);
-    //    cluster.buildClusterer(testSet);
 
     SimpleKMeans cluster = new SimpleKMeans();
     cluster.setOptions(options);
@@ -66,6 +67,7 @@ public class WekaService {
     ClusterEvaluation eval = new ClusterEvaluation();
     eval.setClusterer(cluster);
     eval.evaluateClusterer(testSet);
+    return eval;
   }
 
   public static void main(String[] args) throws Exception {
@@ -75,16 +77,15 @@ public class WekaService {
     
     System.out.println(eval.clusterResultsToString());
     ArrayList<Tag> clusters[] = new ArrayList[eval.getNumClusters()];
-    for(i = 0; i<eval.getNumClusters() ; i++)
+    for(int i = 0; i<eval.getNumClusters() ; i++)
     {
       clusters[i] = new ArrayList<Tag>();
     }
     
     double[] result = eval.getClusterAssignments();
-    for(i = 0; i<result.length; i++)
+    for(int i = 0; i<result.length; i++)
     {
       clusters[(int)result[i]].add(tags[i]);
-      
     }
     Comparator<Tag> sort = new Comparator<Tag>()
     {
@@ -102,19 +103,18 @@ public class WekaService {
       }
       
     };
-    for(i = 0; i<eval.getNumClusters() ; i++)
+    for(int i = 0; i<eval.getNumClusters() ; i++)
     {
       Collections.sort(clusters[i],sort);
     }
     
     System.out.println(eval.clusterResultsToString());
 	BufferedWriter writer = new BufferedWriter(new FileWriter("center.txt"));
-	writer.write(cluster.getClusterCentroids().toString());
 
 	writer.close();
 	
     
-    for(i = 0; i<eval.getNumClusters() ; i++)
+    for(int i = 0; i<eval.getNumClusters() ; i++)
     {
       System.out.print("cluster"+(i+1)+"(size:"+clusters[i].size()+")" +" : ");
       for(int j =0; j<clusters[i].size() ; j++)

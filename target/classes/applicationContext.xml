@@ -6,6 +6,11 @@
   http://www.springframework.org/schema/context
   http://www.springframework.org/schema/context/spring-context.xsd">
 
+  <bean id="AreaTfIdfService" class="graduate.tfidf.BasicAreaTfIdf">
+    <property name ="platFormDataService" ref="platFormDataService"/>
+    <property name = "clusterDao" ref = "clusterDao"/>
+    <property name = "attributeDao" ref ="attributeDao"/>
+  </bean>
 
   <bean id ="arffToDatabase" class = "graduate.cluster.BasicArffToDatabase">
     <property name = "instaDataSource" ref="instaDataSource"/>
@@ -79,9 +84,9 @@
     class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
     <property name="driverClass" value="com.mysql.jdbc.Driver" />
     <property name="url"
-     value="jdbc:mysql://localhost:3306/instadata?useSSL=false" />
+     value="jdbc:mysql://localhost:3306/cluster?useSSL=false" />
      <property name="username" value="root" />
-     <property name="password" value="song9207108" />
+     <property name="password" value="5887" />
    </bean>
 
   <bean id="userDataSource"
@@ -90,7 +95,7 @@
     <property name="url"
      value="jdbc:mysql://localhost:3306/userdb?useSSL=false" />
      <property name="username" value="root" />
-     <property name="password" value="song9207108" />
+     <property name="password" value="5887" />
    </bean>
 
    <bean id="clusterDataSource"
@@ -99,7 +104,7 @@
      <property name="url"
       value="jdbc:mysql://localhost:3306/cluster?useSSL=false" />
       <property name="username" value="root" />
-      <property name="password" value="song9207108" />
+      <property name="password" value="5887" />
     </bean>
 
  </beans>
