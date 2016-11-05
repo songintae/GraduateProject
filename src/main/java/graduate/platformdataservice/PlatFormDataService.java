@@ -25,6 +25,7 @@ public interface PlatFormDataService {
 	
 	
 	public List<Tag> getAllTags();
+	
 	public List<Tag> getUserTags(String user_id);
 	
 	
