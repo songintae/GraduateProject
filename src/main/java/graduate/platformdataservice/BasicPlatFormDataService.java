@@ -178,6 +178,11 @@ public class BasicPlatFormDataService implements PlatFormDataService {
 		}
 		return attributes;
 	}
+	@Override
+	public void attributeUpdate(Attribute attribute) {
+		// TODO Auto-generated method stub
+		this.attributeDao.update(attribute);
+	}
 
 
 }
