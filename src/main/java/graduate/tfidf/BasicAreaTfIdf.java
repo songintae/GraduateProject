@@ -46,8 +46,10 @@ public class BasicAreaTfIdf implements AreaTfIdfService {
 					count++;
 					break;
 				}
+				System.out.println(attribute.getTag() + "/count : "+count);
 			}
 		}
+		
 		return count;
 	}
 
@@ -132,7 +134,7 @@ public class BasicAreaTfIdf implements AreaTfIdfService {
 
 	@Override
 	public void tfIdf(List<String> strAreas, String strArea) {
-		List<Cluster> clusters = clusterDao.getAll();
+		List<Cluster> clusters = platFormDataService.getAllCluster();
 
 		List<Area> areas = new ArrayList<Area>();
 		// areas 초기화

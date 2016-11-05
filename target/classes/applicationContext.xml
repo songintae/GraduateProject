@@ -29,6 +29,8 @@
   <bean id="platFormDataService" class="graduate.platformdataservice.BasicPlatFormDataService">
     <property name="contentDao" ref="contentDao" />
     <property name="tagDao" ref="tagDao" />
+    <property name="clusterDao" ref="clusterDao"/>
+    <property name="attributeDao" ref="attributeDao"/>
   </bean>
 
   <bean id="noiseRemover" class="graduate.remover.NoiseRemover">

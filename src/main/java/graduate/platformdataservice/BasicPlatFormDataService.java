@@ -125,8 +125,8 @@ public class BasicPlatFormDataService implements PlatFormDataService {
 	@Override
 	public List<Attribute> getAttribute(int area_id) {
 		// TODO Auto-generated method stub
-		
 		List<Cluster> clusters = clusterDao.get(area_id);
+
 		List<Attribute> attributes = attributeDao.get(area_id);
 		
 		
