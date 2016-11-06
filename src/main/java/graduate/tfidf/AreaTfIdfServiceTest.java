@@ -19,10 +19,12 @@ public class AreaTfIdfServiceTest {
 	@Test
 	public void areaTfIdfServicetest(){
 		List<String> areas = new ArrayList<String>();
-		areas.add("gangneung");
 		areas.add("boseong");
-		areas.add("andong");
+//		areas.add("jeonju");
 		
 		areaTfIdfService.tfIdf(areas, "gangneung");
+		
+		
+		//areaTfIdfService.settingTf("gangneung");
 	}
 }
