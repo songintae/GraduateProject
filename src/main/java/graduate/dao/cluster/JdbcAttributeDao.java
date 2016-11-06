@@ -57,7 +57,7 @@ private JdbcTemplate jdbcTemplate;
 	@Override
 	public List<Attribute> get(int area_id) {
 		// TODO Auto-generated method stub
-		return this.jdbcTemplate.query("select attribute.id , attribute.tag , attribute.count , attribute.cluster_id, attribute.tf_score , attribute.idf_score , attribute.tf_idf_score from cluster INNER JOIN attribute where cluster.cluster_id = attribute.cluster_id and cluster.area_id = "+area_id,this.attributeMapper);
+		return this.jdbcTemplate.query("select attribute.id , attribute.tag , attribute.count , attribute.cluster_id, attribute.tf_score , attribute.idf_score , attribute.tf_idf_score from cluster INNER JOIN attribute where cluster.id = attribute.cluster_id and cluster.area_id = "+area_id,this.attributeMapper);
 	}
 
 	@Override
