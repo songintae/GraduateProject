@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
   xsi:schemaLocation="http://www.springframework.org/schema/beans
   http://www.springframework.org/schema/beans/spring-beans.xsd
   http://www.springframework.org/schema/context
@@ -18,12 +19,10 @@
     <property name = "attributeDao" ref ="attributeDao"/>
   </bean>
 
-  <bean id="userService" class="graduate.userservice.BasicUserService">
+
+ <!--  <bean id="tagDupRemover" class="graduate.cluster.BasicTagDupRemover">
     <property name ="platFormDataService" ref="platFormDataService"/>
-  </bean>
-  <bean id="tagDupRemover" class="graduate.cluster.BasicTagDupRemover">
-    <property name ="platFormDataService" ref="platFormDataService"/>
-  </bean>
+  </bean> -->
   <bean id="removeSurrogateArea" class="graduate.instagram.BasicRemoveSurrogateArea" />
 
   <bean id="platFormDataService" class="graduate.platformdataservice.BasicPlatFormDataService">
@@ -83,28 +82,25 @@
   <bean id="instaDataSource"
     class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
     <property name="driverClass" value="com.mysql.jdbc.Driver" />
-    <property name="url"
-     value="jdbc:mysql://localhost:3306/cluster?useSSL=false" />
+    <property name="url" value="jdbc:mysql://localhost:3306/cluster?useSSL=false" />
      <property name="username" value="root" />
-     <property name="password" value="5887" />
+     <property name="password" value="song9207108" />
    </bean>
 
   <bean id="userDataSource"
     class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
     <property name="driverClass" value="com.mysql.jdbc.Driver" />
-    <property name="url"
-     value="jdbc:mysql://localhost:3306/userdb?useSSL=false" />
+    <property name="url" value="jdbc:mysql://localhost:3306/userdb?useSSL=false" />
      <property name="username" value="root" />
-     <property name="password" value="5887" />
+     <property name="password" value="song9207108" />
    </bean>
 
    <bean id="clusterDataSource"
      class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
      <property name="driverClass" value="com.mysql.jdbc.Driver" />
-     <property name="url"
-      value="jdbc:mysql://localhost:3306/cluster?useSSL=false" />
+     <property name="url" value="jdbc:mysql://localhost:3306/cluster?useSSL=false" />
       <property name="username" value="root" />
-      <property name="password" value="5887" />
+      <property name="password" value="song9207108" />
     </bean>
 
  </beans>
