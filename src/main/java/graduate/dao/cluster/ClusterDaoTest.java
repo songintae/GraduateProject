@@ -63,7 +63,7 @@ public class ClusterDaoTest {
 		assertThat(attributes.size() , is(0));
 		
 		attributes = attributeDao.get(11);
-		assertThat(attributes.size(),is(1018));
+		assertThat(attributes.size(),is(833));
 	}
 	
 	

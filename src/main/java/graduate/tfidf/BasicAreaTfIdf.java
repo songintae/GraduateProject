@@ -37,22 +37,7 @@ public class BasicAreaTfIdf implements AreaTfIdfService {
 		return sum;
 	}
 
-	private double countTagInArea(List<Area> areas, String tag) {
-		List<Attribute> attributes;
-		double count = 0.0;
-		for (Area area : areas) {
-			attributes = platFormDataService.getAttribute(area.getIntCode());
-//			System.out.println(area.getArea()+"의 어트리뷰트개수 : "+attributes.size());
-			for (Attribute attribute : attributes) {
-				if (attribute.getTag().equals(tag)) {
-					count++;
-					break;
-				}
-			}
-		}
 
-		return count;
-	}
 
 	@Override
 	public void settingTf(String name) {
@@ -63,7 +48,7 @@ public class BasicAreaTfIdf implements AreaTfIdfService {
 		for (Attribute attribute : attributes) {
 			attribute.setTf_score(attribute.getCount() / sum);
 			// platFormDataService.attributeUpdate(attribute);
-			System.out.println(attribute.getTag() + " : " + attribute.getTf_score());
+//			System.out.println(attribute.getTag() + " : " + attribute.getTf_score());
 		}
 	}
 
@@ -107,6 +92,25 @@ public class BasicAreaTfIdf implements AreaTfIdfService {
 		}
 	}
 
+	private double countTagInArea(List<Area> areas, String tag) {
+		List<Attribute> attributes;
+		double count = 0.0;
+		for (Area area : areas) {
+			attributes = platFormDataService.getAttribute(area.getIntCode());
+//			System.out.println(area.getArea()+"의 어트리뷰트개수 : "+attributes.size());
+			for (Attribute attribute : attributes) {
+//				System.out.println(attribute.getTag() +"/"+ tag);
+				if (attribute.getTag().equals(tag)) {
+//					System.out.println("들어옴");
+					count++;
+					break;
+				}
+			}
+		}
+
+		return count;
+	}
+	
 	@Override
 	public void tfIdf(List<String> strAreas, String strArea) {
 		double idfCount = 0.0;
@@ -132,14 +136,15 @@ public class BasicAreaTfIdf implements AreaTfIdfService {
 			attribute.setTf_score(attribute.getCount() / sum);
 			//idf구하기
 			idfCount = countTagInArea(areas, attribute.getTag());
-			System.out.println(attribute.getTag() + " : " + idfCount);
-			if (idfCount > 0) {
-				attribute.setIdf_score(Math.log10(((double) strAreas.size()*1000) / idfCount));
+//			System.out.println(attribute.getTag() + " : " + attribute.getTf_score());
+//			System.out.println(attribute.getTag() + " : " + idfCount);
+			if (idfCount > 0.0) {
+				attribute.setTf_idf_score(Math.log10(((double) strAreas.size()) / idfCount));
 			} else {
-				attribute.setIdf_score(1.0);
+				attribute.setTf_idf_score(1.0);
 			}
-			attribute.setTf_idf_score(attribute.getTf_score() * attribute.getIdf_score());
-//			System.out.println(attribute.getTag() + " : " + attribute.getIdf_score());
+//			attribute.setTf_idf_score(attribute.getTf_score() * attribute.getIdf_score());
+			System.out.println(attribute.getTag() + " : " + attribute.getTf_idf_score());
 		}
 		
 
