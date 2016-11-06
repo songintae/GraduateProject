@@ -20,9 +20,6 @@
   </bean>
 
 
- <!--  <bean id="tagDupRemover" class="graduate.cluster.BasicTagDupRemover">
-    <property name ="platFormDataService" ref="platFormDataService"/>
-  </bean> -->
   <bean id="removeSurrogateArea" class="graduate.instagram.BasicRemoveSurrogateArea" />
 
   <bean id="platFormDataService" class="graduate.platformdataservice.BasicPlatFormDataService">
