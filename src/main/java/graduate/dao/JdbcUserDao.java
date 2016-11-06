@@ -10,10 +10,16 @@ import org.springframework.jdbc.core.RowMapper;
 
 import graduate.domain.Tag;
 import graduate.domain.User;
+import graduate.sqlservice.SqlService;
 
 public class JdbcUserDao implements UserDao {
 
 	private JdbcTemplate jdbcTemplate;
+	private SqlService sqlService;
+	
+	public void setSqlService(SqlService sqlService){
+		this.sqlService = sqlService;
+	}
 	
 	public void setDataSource(DataSource dataSource)
 	{
@@ -36,14 +42,14 @@ public class JdbcUserDao implements UserDao {
 	public void add(User user) {
 		// TODO Auto-generated method stub
 		
-		this.jdbcTemplate.update("insert into user(user_id) values(?)",user.getUser_id());
+		this.jdbcTemplate.update(this.sqlService.getSql("userAdd"),user.getUser_id());
 		
 		
 	}
 
 	public void deleteAll() {
 		// TODO Auto-generated method stub
-		this.jdbcTemplate.update("delete from user");
+		this.jdbcTemplate.update(this.sqlService.getSql("userDeleteAll"));
 		
 	}
 

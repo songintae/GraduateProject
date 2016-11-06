@@ -16,13 +16,18 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 
 import graduate.domain.Tag;
+import graduate.sqlservice.SqlService;
 
 public class JdbcTagDao implements TagDao  {
 	
 	private JdbcTemplate jdbcTemplate;
-	
+	private SqlService sqlService;
 	public void setDataSource(DataSource dataSource){
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+	
+	public void setSqlService(SqlService sqlService){
+		this.sqlService = sqlService;
 	}
 	
 	private RowMapper<Tag> tagMapper = new RowMapper<Tag>(){
@@ -40,32 +45,32 @@ public class JdbcTagDao implements TagDao  {
 	public void add(Tag tag) {
 		// TODO Auto-generated method stub
 		
-		this.jdbcTemplate.update("insert into tags(tag_id,content_id,tag) values(?,?,?)"
+		this.jdbcTemplate.update(this.sqlService.getSql("tagAdd")
 				,tag.getTag_id(),tag.getContent_id(),tag.getTag());
 		
 	}
 	public void delete(int id) {
 		// TODO Auto-generated method stub
-		this.jdbcTemplate.update("delete from tags where tag_id = ?", id);
+		this.jdbcTemplate.update(this.sqlService.getSql("tagDelete"), id);
 		
 	}
 	
 	public Tag get(int id) {
 		// TODO Auto-generated method stub
-		return this.jdbcTemplate.queryForObject("select * from tags where tag_id = "+id,this.tagMapper);
+		return this.jdbcTemplate.queryForObject(this.sqlService.getSql("tagGet")+id,this.tagMapper);
 		
 	}
 	public List<Tag> getAll() {
 		// TODO Auto-generated method stub
-		return this.jdbcTemplate.query("select * from tags", this.tagMapper);
+		return this.jdbcTemplate.query(this.sqlService.getSql("tagGetAll"), this.tagMapper);
 	}
 	public List<Tag> getAll(int content_id) {
 		// TODO Auto-generated method stub
-		return this.jdbcTemplate.query("select * from tags where content_id ="+content_id, this.tagMapper);
+		return this.jdbcTemplate.query(this.sqlService.getSql("tagGetAllByContent_id")+content_id, this.tagMapper);
 	}
 	public void deleteAll() {
 		// TODO Auto-generated method stub
-		this.jdbcTemplate.update("delete from tags ");
+		this.jdbcTemplate.update(this.sqlService.getSql("tagDeleteAll"));
 	}
 	public int getCount() {
 		// TODO Auto-generated method stub
@@ -73,7 +78,7 @@ public class JdbcTagDao implements TagDao  {
 
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				// TODO Auto-generated method stub
-				return con.prepareStatement("select count(*) from tags");
+				return con.prepareStatement(sqlService.getSql("tagGetCount"));
 			}
 			
 		}, new ResultSetExtractor<Integer>(){
@@ -93,7 +98,7 @@ public class JdbcTagDao implements TagDao  {
 
 				public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 					// TODO Auto-generated method stub
-					return con.prepareStatement("select * from tags");
+					return con.prepareStatement(sqlService.getSql("tagGetLastId"));
 				}
 				
 			}, new ResultSetExtractor<Integer>(){

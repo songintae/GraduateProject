@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlmap xmlns="http://www.example.org/sqlmap"
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:schemaLocation="http://www.epril.com/sqlmap ../../../../../sqlmap.xsd ">
+
+
+		<!-- Content sql -->
+		<sql key="contentAdd">insert into contents(content_id,num_like,num_tag,text,user_id) values(?,?,?,?,?)</sql>
+		<sql key="contentGet">select * from contents where content_id =</sql>
+		<sql key="contentDelete">delete from contents where content_id = ?<sql>
+		<sql key="contentDeleteAll">delete from contents</sql>
+		<sql key="contentGetCount">select count(*) from contents</sql>
+		<sql key="contentGetAllForUser">"select * from contents where user_id =</sql>
+		<sql key="contentGetAll">select * from contents</sql>
+		<sql key="contentGetLastId">select * from contents</sql>
+
+</sqlmap>

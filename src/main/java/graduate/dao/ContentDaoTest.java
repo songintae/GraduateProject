@@ -133,6 +133,12 @@ public class ContentDaoTest {
 		assertThat(contentDao.getLastId(),is(3));
 	}
 	
+	@Test
+	public void test(){
+		List<Content> contents = contentDao.getAll();
+		assertThat(contents.size() , is(2));
+	}
+	
 	
 	
 }

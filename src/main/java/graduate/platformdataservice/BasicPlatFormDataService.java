@@ -129,7 +129,7 @@ public class BasicPlatFormDataService implements PlatFormDataService {
 
 		List<Attribute> attributes = attributeDao.get(area_id);
 		
-		
+		clusters = mapCluster(clusters,attributes);
 		return mapAttribute(clusters, attributes);
 	}
 	
@@ -151,19 +151,21 @@ public class BasicPlatFormDataService implements PlatFormDataService {
 		List<Cluster> clusters = clusterDao.getAll();
 		List<Attribute> attributes = attributeDao.getAll();
 		
+		clusters = mapCluster(clusters,attributes);
 		return mapAttribute(clusters, attributes);
 	}
 	
 	private List<Cluster> mapCluster(List<Cluster> clusters , List<Attribute> attributes){
-		List<Attribute> rlAttribute = new ArrayList<Attribute>();
+	
 		for(Cluster cluster : clusters){
+			List<Attribute> rlAttribute = new ArrayList<Attribute>();
 			for(Attribute attribute : attributes){
-				if(cluster.getCluster_id() == attribute.getCluster_id()){
+				if(cluster.getId() == attribute.getCluster_id()){
+					attribute.setCluster(cluster);
 					rlAttribute.add(attribute);
 				}
 			}
 			cluster.setAttributes(rlAttribute);
-			rlAttribute.clear();
 		}
 		return clusters;
 	}
@@ -171,7 +173,7 @@ public class BasicPlatFormDataService implements PlatFormDataService {
 	private List<Attribute> mapAttribute(List<Cluster> clusters , List<Attribute> attributes){
 		for(Attribute attribute : attributes){
 			for(Cluster cluster : clusters){
-				if(cluster.getCluster_id() == attribute.getCluster_id()){
+				if(cluster.getId() == attribute.getCluster_id()){
 					attribute.setCluster(cluster);
 				}
 			}

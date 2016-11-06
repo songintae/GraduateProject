@@ -11,10 +11,13 @@ import org.springframework.jdbc.core.RowMapper;
 
 import graduate.domain.cluster.Attribute;
 import graduate.domain.cluster.Cluster;
+import graduate.sqlservice.SqlService;
 
 public class JdbcAttributeDao implements AttributeDao {
 	
-private JdbcTemplate jdbcTemplate; 
+	private JdbcTemplate jdbcTemplate; 
+	private SqlService sqlService;
+
 	
 	private RowMapper<Attribute> attributeMapper = new RowMapper<Attribute>(){
 
@@ -38,11 +41,13 @@ private JdbcTemplate jdbcTemplate;
 	public void setDataSource(DataSource dataSource){
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
+	public void setSqlService(SqlService sqlService){
+		this.sqlService = sqlService;
+	}
 	
 	public void add(Attribute attribute) {
 		// TODO Auto-generated method stub
-		this.jdbcTemplate.update("insert into Attribute(count,tag,cluster_id) "
-				+"values(?,?,?)", attribute.getCount(),attribute.getTag()
+		this.jdbcTemplate.update(this.sqlService.getSql("attributeAdd"), attribute.getCount(),attribute.getTag()
 				,attribute.getCluster_id());
 		
 	}
@@ -50,25 +55,23 @@ private JdbcTemplate jdbcTemplate;
 	@Override
 	public List<Attribute> getAll() {
 		// TODO Auto-generated method stub
-		return this.jdbcTemplate.query("select * from attribute" , this.attributeMapper);
+		return this.jdbcTemplate.query(this.sqlService.getSql("attributeGetAll") , this.attributeMapper);
 		
 	}
 
 	@Override
 	public List<Attribute> get(int area_id) {
 		// TODO Auto-generated method stub
-		return this.jdbcTemplate.query("select attribute.id , attribute.tag , attribute.count , attribute.cluster_id, attribute.tf_score , attribute.idf_score , attribute.tf_idf_score from cluster INNER JOIN attribute where cluster.id = attribute.cluster_id and cluster.area_id = "+area_id,this.attributeMapper);
+		return this.jdbcTemplate.query(this.sqlService.getSql("attributeGetByArea")+area_id,this.attributeMapper);
 	}
 
 	@Override
 	public void update(Attribute attribute) {
 		// TODO Auto-generated method stub
-		this.jdbcTemplate.update("update attribute where id = ? "
-				+ "set tag = ? count = ? cluster_id = ? "
-				+ "tf_score = ? idf_score = ? tf_idf_score = ?",
-				attribute.getId(),attribute.getTag(), attribute.getCount(),
+		this.jdbcTemplate.update(this.sqlService.getSql("attributeUpdate"),
+				attribute.getTag(), attribute.getCount(),
 				attribute.getCluster_id(), attribute.getTf_score() , attribute.getIdf_score()
-				,attribute.getTf_idf_score());
+				,attribute.getTf_idf_score(), attribute.getId());
 		
 	}
 

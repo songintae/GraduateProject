@@ -1,17 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
   xsi:schemaLocation="http://www.springframework.org/schema/beans
   http://www.springframework.org/schema/beans/spring-beans.xsd
   http://www.springframework.org/schema/context
   http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <bean id="AreaTfIdfService" class="graduate.tfidf.BasicAreaTfIdf">
-    <property name ="platFormDataService" ref="platFormDataService"/>
-    <property name = "clusterDao" ref = "clusterDao"/>
-    <property name = "attributeDao" ref ="attributeDao"/>
+
+
+
+
+  <bean id="sqlService" class="graduate.sqlservice.XmlSqlService">
+    <property name = "sqlRegistry" ref = "sqlRegistry"/>
+    <property name = "sqlReader" ref = "sqlReader"/>
   </bean>
+
+  <bean id="sqlReader" class="graduate.sqlservice.OxmSqlReader">
+    <property name="unmarshaller" ref="unmarshaller"/>
+  </bean>
+  <bean id="sqlRegistry" class="graduate.sqlservice.HashMapSqlRegistry"/>
+
+  <bean id="unmarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+    <property name = "contextPath" value="graduate.sqlservice.jaxb"/>
+  </bean>
+
+  <bean id="AreaTfIdfService" class="graduate.tfidf.BasicAreaTfIdf">
+      <property name ="platFormDataService" ref="platFormDataService"/>
+      <property name = "clusterDao" ref = "clusterDao"/>
+      <property name = "attributeDao" ref ="attributeDao"/>
+    </bean>
+
+
+
 
   <bean id ="arffToDatabase" class = "graduate.cluster.BasicArffToDatabase">
     <property name = "instaDataSource" ref="instaDataSource"/>
@@ -20,6 +40,9 @@
   </bean>
 
 
+  <bean id="tagDupRemover" class="graduate.cluster.BasicTagDupRemover">
+    <property name ="platFormDataService" ref="platFormDataService"/>
+  </bean>
   <bean id="removeSurrogateArea" class="graduate.instagram.BasicRemoveSurrogateArea" />
 
   <bean id="platFormDataService" class="graduate.platformdataservice.BasicPlatFormDataService">
@@ -42,20 +65,25 @@
 
   <bean id = "userDao" class ="graduate.dao.JdbcUserDao">
     <property name = "dataSource" ref = "userDataSource" />
+    <property name="sqlService" ref="sqlService"/>
   </bean>
 
   <bean id="tagDao" class="graduate.dao.JdbcTagDao">
     <property name="dataSource" ref="userDataSource" />
+    <property name="sqlService" ref="sqlService"/>
   </bean>
   <bean id="contentDao" class="graduate.dao.JdbcContentDao">
     <property name="dataSource" ref="userDataSource" />
+    <property name="sqlService" ref="sqlService"/>
   </bean>
 
   <bean id="clusterDao" class="graduate.dao.cluster.JdbcClusterDao">
     <property name="dataSource" ref="clusterDataSource" />
+    <property name="sqlService" ref="sqlService"/>
   </bean>
   <bean id="attributeDao" class="graduate.dao.cluster.JdbcAttributeDao">
     <property name="dataSource" ref="clusterDataSource" />
+    <property name="sqlService" ref="sqlService"/>
   </bean>
 
 
@@ -79,7 +107,8 @@
   <bean id="instaDataSource"
     class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
     <property name="driverClass" value="com.mysql.jdbc.Driver" />
-    <property name="url" value="jdbc:mysql://localhost:3306/cluster?useSSL=false" />
+    <property name="url"
+     value="jdbc:mysql://localhost:3306/instadata?useSSL=false" />
      <property name="username" value="root" />
      <property name="password" value="song9207108" />
    </bean>
@@ -87,7 +116,8 @@
   <bean id="userDataSource"
     class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
     <property name="driverClass" value="com.mysql.jdbc.Driver" />
-    <property name="url" value="jdbc:mysql://localhost:3306/userdb?useSSL=false" />
+    <property name="url"
+     value="jdbc:mysql://localhost:3306/userdb?useSSL=false" />
      <property name="username" value="root" />
      <property name="password" value="song9207108" />
    </bean>
@@ -95,7 +125,8 @@
    <bean id="clusterDataSource"
      class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
      <property name="driverClass" value="com.mysql.jdbc.Driver" />
-     <property name="url" value="jdbc:mysql://localhost:3306/cluster?useSSL=false" />
+     <property name="url"
+      value="jdbc:mysql://localhost:3306/cluster?useSSL=false" />
       <property name="username" value="root" />
       <property name="password" value="song9207108" />
     </bean>

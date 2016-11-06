@@ -17,10 +17,13 @@ import org.springframework.jdbc.core.RowMapper;
 import graduate.domain.Content;
 import graduate.domain.cluster.Area;
 import graduate.domain.cluster.Cluster;
+import graduate.sqlservice.SqlService;
 
 public class JdbcClusterDao implements ClusterDao {
 	
 	private JdbcTemplate jdbcTemplate; 
+	private SqlService sqlService;
+	
 	
 	private RowMapper<Cluster> clusterMapper = new RowMapper<Cluster>(){
 
@@ -38,14 +41,17 @@ public class JdbcClusterDao implements ClusterDao {
 		
 	};
 	
+	public void setSqlService(SqlService sqlService){
+		 this.sqlService = sqlService;
+	}
+	
 	public void setDataSource(DataSource dataSource){
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
 	public void add(Cluster cluster) {
 		// TODO Auto-generated method stub
-		this.jdbcTemplate.update("insert into cluster(cluster_id,count,area_id) "
-				+"values(?,?,?)",cluster.getCluster_id(),cluster.getCount()
+		this.jdbcTemplate.update(this.sqlService.getSql("clusterAdd"),cluster.getCluster_id(),cluster.getCount()
 				,cluster.getArea().getIntCode());
 		
 	}
@@ -57,7 +63,7 @@ public class JdbcClusterDao implements ClusterDao {
 
 				public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 					// TODO Auto-generated method stub
-					return con.prepareStatement("select * from cluster");
+					return con.prepareStatement(sqlService.getSql("clusterGetLastId"));
 				}
 				
 			}, new ResultSetExtractor<Integer>(){
@@ -76,14 +82,14 @@ public class JdbcClusterDao implements ClusterDao {
 	@Override
 	public List<Cluster> getAll() {
 		// TODO Auto-generated method stub
-		return this.jdbcTemplate.query("select * from cluster", this.clusterMapper);
+		return this.jdbcTemplate.query(this.sqlService.getSql("clusterGetAll"), this.clusterMapper);
 	
 	}
 
 	@Override
 	public List<Cluster> get(int area_id) {
 		// TODO Auto-generated method stub
-		return this.jdbcTemplate.query("select * from cluster where area_id ="+area_id, this.clusterMapper);
+		return this.jdbcTemplate.query(this.sqlService.getSql("clusterGet")+area_id, this.clusterMapper);
 	}
 
 }

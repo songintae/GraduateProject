@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlmap xmlns="http://www.example.org/sqlmap"
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xsi:schemaLocation="http://www.epril.com/sqlmap ../../../../../sqlmap.xsd ">
+
+
+		<!-- Content sql -->
+		<sql key="contentAdd">insert into contents(content_id,num_like,num_tag,text,user_id) values(?,?,?,?,?) </sql>
+		<sql key="contentGet">select * from contents where content_id = </sql>
+		<sql key="contentDelete">delete from contents where content_id = ? </sql>
+		<sql key="contentDeleteAll">delete from contents </sql>
+		<sql key="contentGetCount">select count(*) from contents </sql>
+		<sql key="contentGetAllForUser">select * from contents where user_id = </sql>
+		<sql key="contentGetAll">select * from contents </sql>
+		<sql key="contentGetLastId">select * from contents </sql>
+
+
+		<!-- Tag Sql -->
+		<sql key ="tagAdd">insert into tags(tag_id,content_id,tag) values(?,?,?)</sql>
+		<sql key ="tagDelete">delete from tags where tag_id = ?</sql>
+		<sql key ="tagGet">select * from tags where tag_id = </sql>
+		<sql key ="tagGetAll">select * from tags</sql>
+		<sql key ="tagGetAllByContent_id">select * from tags where content_id =</sql>
+		<sql key ="tagDeleteAll">delete from tags </sql>
+		<sql key ="tagGetCount">select count(*) from tags</sql>
+		<sql key ="tagGetLastId">select * from tags</sql>
+
+		<!-- User sql -->
+		<sql key ="userAdd">insert into user(user_id) values(?)</sql>
+		<sql key ="userDeleteAll">delete from user</sql>
+
+		<!-- cluster sql -->
+		<sql key ="clusterAdd">insert into cluster(cluster_id,count,area_id) values(?,?,?)</sql>
+		<sql key ="clusterGetLastId">select * from cluster</sql>
+		<sql key ="clusterGetAll">select * from cluster</sql>
+		<sql key ="clusterGet">select * from cluster where area_id =</sql>
+
+		<!-- attribute sql -->
+		<sql key="attributeAdd">insert into Attribute(count,tag,cluster_id) values(?,?,?)</sql>
+		<sql key="attributeGetAll">select * from attribute</sql>
+		<sql key="attributeGetByArea">select attribute.id , attribute.tag , attribute.count , attribute.cluster_id, attribute.tf_score , attribute.idf_score , attribute.tf_idf_score from cluster INNER JOIN attribute where cluster.id = attribute.cluster_id and cluster.area_id = </sql>
+		<sql key="attributeUpdate">"update attribute set tag = ?, count = ?, cluster_id = ?, tf_score = ?, idf_score = ?, tf_idf_score = ?  where id = ?</sql>
+
+
+
+
+</sqlmap>
