@@ -26,8 +26,6 @@
 
   <bean id="AreaTfIdfService" class="graduate.tfidf.BasicAreaTfIdf">
       <property name ="platFormDataService" ref="platFormDataService"/>
-      <property name = "clusterDao" ref = "clusterDao"/>
-      <property name = "attributeDao" ref ="attributeDao"/>
     </bean>
 
 
@@ -110,7 +108,7 @@
     <property name="url"
      value="jdbc:mysql://localhost:3306/instadata?useSSL=false" />
      <property name="username" value="root" />
-     <property name="password" value="5887" />
+     <property name="password" value="song9207108" />
    </bean>
 
   <bean id="userDataSource"
@@ -119,7 +117,7 @@
     <property name="url"
      value="jdbc:mysql://localhost:3306/userdb?useSSL=false" />
      <property name="username" value="root" />
-     <property name="password" value="5887" />
+     <property name="password" value="song9207108" />
    </bean>
 
    <bean id="clusterDataSource"
@@ -128,7 +126,7 @@
      <property name="url"
       value="jdbc:mysql://localhost:3306/cluster?useSSL=false" />
       <property name="username" value="root" />
-      <property name="password" value="5887" />
+      <property name="password" value="song9207108" />
     </bean>
 
  </beans>

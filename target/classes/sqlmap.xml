@@ -39,7 +39,7 @@
 		<sql key="attributeAdd">insert into Attribute(count,tag,cluster_id) values(?,?,?)</sql>
 		<sql key="attributeGetAll">select * from attribute</sql>
 		<sql key="attributeGetByArea">select attribute.id , attribute.tag , attribute.count , attribute.cluster_id, attribute.tf_score , attribute.idf_score , attribute.tf_idf_score from cluster INNER JOIN attribute where cluster.id = attribute.cluster_id and cluster.area_id = </sql>
-		<sql key="attributeUpdate">"update attribute set tag = ?, count = ?, cluster_id = ?, tf_score = ?, idf_score = ?, tf_idf_score = ?  where id = ?</sql>
+		<sql key="attributeUpdate">update attribute set tag = ?, count = ?, cluster_id = ?, tf_score = ?, idf_score = ?, tf_idf_score = ?  where id = ?</sql>
 
 
 

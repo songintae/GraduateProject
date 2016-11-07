@@ -143,7 +143,7 @@ public class PlatFormDataServiceTest {
 	@Test
 	public void test(){
 		List<Cluster> clusters = this.platFormDataService.getClusters(11);
-		assertThat(clusters.size() , is(20));
+		assertThat(clusters.size() , is(18));
 		assertThat(clusters.get(0).getAttributes().get(0).getCluster().getArea().getArea(),is("전주"));
 	}
 }
